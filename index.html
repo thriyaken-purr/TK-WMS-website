@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17342b">
+  <meta name="description" content="Explore TK WMS warehouse execution, inventory control, strategy, rules, configurable workflows, and operational visibility.">
+  <title>TK WMS | Warehouse Management</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #17342b;
+      --forest-deep: #102720;
+      --moss: #526e5e;
+      --lime: #c3e991;
+      --paper: #f5f7f2;
+      --white: #fff;
+      --ink: #192b24;
+      --muted: #5e6d64;
+      --line: #d7dfd7;
+      font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { min-width: 320px; margin: 0; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .site-header { position: sticky; top: 0; z-index: 5; min-height: 76px; color: white; background: var(--forest-deep); border-bottom: 1px solid rgba(255,255,255,.16); }
+    .header-inner { width: min(1440px, 100%); min-height: 76px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { display: flex; align-items: center; gap: 13px; min-width: 210px; text-decoration: none; }
+    .brand-logo { display: block; width: 42px; height: 42px; flex: 0 0 42px; object-fit: contain; }
+    .brand-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+    .brand-title { color: white; font-size: 17px; line-height: 1; font-weight: 720; }
+    .brand-caption { color: #c1d1c7; font-size: 8px; line-height: 1; letter-spacing: .14em; }
+    .header-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .header-nav a { min-height: 40px; display: inline-flex; align-items: center; padding: 0 13px; color: #d5e0d8; border-bottom: 2px solid transparent; text-decoration: none; font-size: 10px; font-weight: 650; white-space: nowrap; cursor: pointer; transition: color .18s ease, border-color .18s ease; }
+    .header-nav a:hover { color: var(--lime); }
+    .header-nav a[aria-current="location"] { color: white; border-bottom-color: var(--lime); }
+    .page-view { scroll-margin-top: 94px; }
+    .page-view[hidden] { display: none; }
+
+    .home-page { min-height: calc(100svh - 77px); }
+    .hero { position: relative; min-height: min(800px, 100svh); display: flex; align-items: center; overflow: hidden; isolation: isolate; color: white; background: var(--forest) url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=88") center 52% / cover no-repeat; }
+    .home-page .hero { min-height: calc(100svh - 77px); }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(11, 31, 24, .88) 0%, rgba(13, 34, 27, .72) 43%, rgba(14, 32, 27, .16) 100%), linear-gradient(0deg, rgba(7, 23, 18, .62) 0%, transparent 43%); }
+    .hero::after { content: ""; position: absolute; z-index: 0; inset: -18% auto -18% -62%; width: min(62vw, 820px); min-width: 390px; border-radius: 48%; background: linear-gradient(105deg, transparent 17%, rgba(204, 241, 171, .04) 39%, rgba(228, 247, 207, .29) 50%, rgba(167, 218, 132, .12) 57%, transparent 78%); filter: blur(3px); transform: rotate(12deg) skewX(-12deg); pointer-events: none; animation: hero-swoosh 1.75s cubic-bezier(.17,.72,.24,1) .12s both; }
+    .hero-inner { position: relative; z-index: 1; width: min(1344px, 100%); margin: 0 auto; padding: 142px 48px 66px; }
+    .hero-kicker { display: flex; align-items: center; gap: 11px; margin: 0; color: #d5e1d9; font-size: 9px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; animation: rise-in .65s both; }
+    .hero-kicker::before { content: ""; width: 31px; height: 2px; background: var(--lime); }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 { max-width: 880px; margin: 24px 0 20px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(58px, 6.5vw, 90px); line-height: .99; letter-spacing: 0; font-weight: 400; animation: rise-in .75s .08s both; }
+    .hero h1 em { color: var(--lime); font-weight: 400; }
+    .hero-copy { max-width: 510px; margin-bottom: 0; color: #e0e9e2; font-size: 14px; line-height: 1.75; animation: rise-in .72s .16s both; }
+    .hero-actions { display: flex; align-items: center; gap: 24px; margin-top: 30px; animation: rise-in .72s .24s both; }
+    .button-primary { min-height: 45px; display: inline-flex; align-items: center; justify-content: center; gap: 13px; padding: 0 18px; color: var(--forest-deep); background: var(--lime); border: 1px solid var(--lime); border-radius: 2px; text-decoration: none; font-size: 10px; font-weight: 800; transition: background .18s ease, transform .18s ease; }
+    .button-primary:hover { background: #d5f2b4; transform: translateY(-1px); }
+    .button-text { color: white; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.58); padding: 8px 0; font-size: 10px; font-weight: 650; }
+    .button-text:hover { color: var(--lime); border-color: var(--lime); }
+    .hero-index { display: flex; flex-wrap: wrap; width: min(710px, 100%); gap: 0; margin-top: 59px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.3); color: #dae4dd; animation: rise-in .72s .32s both; }
+    .hero-index span { margin-right: 28px; font-size: 9px; letter-spacing: .07em; }
+    .hero-index b { margin-right: 7px; color: var(--lime); font-size: 8px; }
+    .button-text { border: 0; background: transparent; font: inherit; cursor: pointer; }
+    .offer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .offer-item { min-height: 185px; padding: 20px 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.28); }
+    .offer-item span { color: #63806e; font-size: 8px; font-weight: 800; letter-spacing: .13em; }
+    .offer-item h3 { margin: 26px 0 8px; color: var(--forest); font-size: 14px; }
+    .offer-item p { max-width: 330px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+    .offer-action { margin-top: 24px; }
+    .goal-view { min-height: calc(100svh - 76px); padding: 66px 48px 80px; background: var(--paper); }
+    .goal-shell { width: min(1200px, 100%); margin: 0 auto; }
+    .goal-lead { max-width: 900px; margin-bottom: 56px; }
+    .goal-lead h1 { margin: 0 0 21px; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: clamp(45px, 6vw, 76px); line-height: 1.01; font-weight: 400; }
+    .goal-lead h1 em { color: #68865b; font-weight: 400; }
+    .goal-lead > p:last-child { max-width: 640px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .goal-principles { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .goal-principle { min-height: 185px; padding: 22px 24px 22px 0; }
+    .goal-principle + .goal-principle { padding-left: 24px; border-left: 1px solid var(--line); }
+    .goal-principle span { color: #68865b; font-size: 8px; font-weight: 800; letter-spacing: .13em; }
+    .goal-principle h2 { margin: 24px 0 8px; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 400; }
+    .goal-principle p { max-width: 330px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+
+    .intro { padding: 91px 48px 48px; background: var(--paper); }
+    .section-shell { width: min(1296px, 100%); margin: 0 auto; }
+    .section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, .75fr); align-items: end; gap: 48px; margin-bottom: 36px; }
+    .eyebrow { margin-bottom: 12px; color: #557261; font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .section-head h2, .differentiators h2, .visibility h2 { max-width: 680px; margin-bottom: 0; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: clamp(36px, 4.3vw, 56px); line-height: 1.04; font-weight: 400; letter-spacing: 0; }
+    .section-intro { max-width: 420px; margin: 0 0 4px auto; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .module-browser { display: grid; grid-template-columns: 255px minmax(0, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .module-tabs { display: flex; flex-direction: column; gap: 2px; padding: 14px 0; border-right: 1px solid var(--line); }
+    .module-tab { min-height: 39px; display: flex; align-items: center; gap: 11px; width: 100%; padding: 8px 13px; color: #596a60; border: 0; border-left: 2px solid transparent; background: transparent; text-align: left; font-size: 10px; font-weight: 650; cursor: pointer; }
+    .module-tab:hover { color: var(--forest); background: #edf1eb; }
+    .module-tab[aria-selected="true"] { color: var(--forest); border-left-color: #668a56; background: #e8eee5; }
+    .module-tab-number { width: 22px; flex: 0 0 22px; color: #78887d; font-size: 8px; font-weight: 750; letter-spacing: .06em; }
+    .module-panel { min-width: 0; min-height: 570px; padding: 39px 42px 34px; animation: panel-reveal .32s ease both; }
+    .module-panel[hidden] { display: none; }
+    .module-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .module-overline { color: #62806b; font-size: 8px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .module-count { color: #718076; font-size: 9px; font-weight: 700; }
+    .module-panel h3 { max-width: 680px; margin: 26px 0 10px; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: clamp(31px, 3.5vw, 43px); line-height: 1.08; font-weight: 400; }
+    .module-description { max-width: 650px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .module-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 27px; margin-top: 31px; }
+    .module-item { padding: 13px 0 12px; border-top: 1px solid var(--line); }
+    .module-item h4 { margin: 0 0 5px; color: var(--forest); font-size: 11px; line-height: 1.4; }
+    .module-item p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.65; }
+
+    .differentiators { position: relative; overflow: hidden; padding: 88px 48px 91px; color: white; background: var(--forest); }
+    .differentiators::before { content: ""; position: absolute; top: -180px; right: -135px; width: 560px; height: 560px; border: 1px solid rgba(195,233,145,.22); border-radius: 50%; box-shadow: 0 0 0 48px rgba(195,233,145,.035), 0 0 0 96px rgba(195,233,145,.025); pointer-events: none; }
+    .diff-shell { position: relative; width: min(1296px, 100%); margin: 0 auto; }
+    .diff-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .65fr); gap: 48px; align-items: end; margin-bottom: 44px; }
+    .differentiators .eyebrow { color: var(--lime); }
+    .differentiators h2 { color: white; }
+    .diff-top p { max-width: 420px; margin: 0 0 4px auto; color: #c6d4cb; font-size: 12px; line-height: 1.8; }
+    .diff-list { border-top: 1px solid rgba(255,255,255,.24); }
+    .diff-row { display: grid; grid-template-columns: 54px minmax(180px, .72fr) minmax(240px, 1fr); gap: 20px; align-items: start; padding: 23px 0; border-bottom: 1px solid rgba(255,255,255,.24); }
+    .diff-number { padding-top: 2px; color: var(--lime); font-size: 9px; font-weight: 750; letter-spacing: .12em; }
+    .diff-row h3 { margin: 0; color: white; font-family: Georgia, "Times New Roman", serif; font-size: 22px; line-height: 1.2; font-weight: 400; }
+    .diff-row p { max-width: 510px; margin: 0; color: #c4d2c9; font-size: 11px; line-height: 1.75; }
+
+    .visibility { padding: 87px 48px 84px; background: #e9eee7; }
+    .visibility-head { display: grid; grid-template-columns: minmax(0, .9fr) minmax(280px, .7fr); align-items: end; gap: 50px; margin-bottom: 34px; }
+    .visibility-head p { max-width: 470px; margin: 0 0 4px auto; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .visibility-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: #c9d4c9; border: 1px solid #c9d4c9; }
+    .visibility-item { min-height: 142px; padding: 18px 19px; background: #e9eee7; }
+    .visibility-item span { color: #5e7b68; font-size: 8px; font-weight: 800; letter-spacing: .12em; }
+    .visibility-item h3 { margin: 26px 0 0; color: var(--forest); font-size: 13px; line-height: 1.4; }
+
+    .closing { padding: 56px 48px 60px; color: white; background: #203f33; }
+    .closing-inner { width: min(1296px, 100%); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 35px; }
+    .closing h2 { max-width: 680px; margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.5vw, 45px); line-height: 1.12; font-weight: 400; }
+    .closing .button-primary { flex: 0 0 auto; }
+    .contact-hero { position: relative; min-height: 430px; display: flex; align-items: center; overflow: hidden; color: white; background: var(--forest) url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=85") center 55% / cover no-repeat; }
+    .contact-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,31,24,.88), rgba(14,34,27,.66) 58%, rgba(14,32,27,.24)); }
+    .contact-hero-inner { position: relative; width: min(1296px, 100%); margin: 0 auto; padding: 72px 48px; }
+    .contact-hero h1 { max-width: 760px; margin: 0 0 17px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(44px, 5.5vw, 72px); line-height: 1.03; font-weight: 400; }
+    .contact-hero p:last-child { max-width: 540px; margin: 0; color: #e0e9e2; font-size: 13px; line-height: 1.75; }
+    .contact-main { padding: 70px 48px 84px; background: var(--paper); }
+    .contact-shell { width: min(1240px, 100%); margin: 0 auto; }
+    .contact-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(270px, .75fr); gap: 60px; align-items: start; }
+    .contact-copy h2 { max-width: 620px; margin: 0 0 13px; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.12; font-weight: 400; }
+    .contact-copy > p:not(.eyebrow) { max-width: 640px; margin: 0 0 26px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .contact-form { display: grid; gap: 14px; }
+    .contact-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 14px; }
+    .contact-field { min-width: 0; display: grid; gap: 6px; }
+    .contact-field.full { grid-column: 1 / -1; }
+    .contact-field label { color: #42554a; font-size: 10px; font-weight: 700; }
+    .contact-field input, .contact-field select, .contact-field textarea { width: 100%; min-height: 42px; padding: 10px 11px; border: 1px solid #cfd9d0; border-radius: 2px; outline: none; color: var(--ink); background: white; font: inherit; font-size: 11px; }
+    .contact-field textarea { min-height: 122px; resize: vertical; }
+    .contact-field input:focus, .contact-field select:focus, .contact-field textarea:focus { border-color: #73946a; box-shadow: 0 0 0 3px rgba(92,130,76,.13); }
+    .contact-form-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .contact-form-note { max-width: 410px; margin: 0; color: #6f7e74; font-size: 9px; line-height: 1.6; }
+    .contact-status { margin: 0; padding: 12px 14px; border-left: 3px solid #a87530; color: #614a2c; background: #f7f0e5; font-size: 10px; line-height: 1.6; }
+    .contact-status[hidden] { display: none; }
+    .contact-topics { padding: 25px 24px 27px; border-top: 3px solid #799563; background: #e9eee7; }
+    .contact-topics h3 { margin: 0 0 8px; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 400; }
+    .contact-topics > p { margin: 0 0 18px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+    .contact-topic-links { display: grid; }
+    .contact-topic-links a { padding: 11px 0; border-top: 1px solid #cbd7cb; color: #2d4938; text-decoration: none; font-size: 10px; font-weight: 700; }
+    .contact-topic-links a:hover { color: #66824f; text-decoration: underline; text-underline-offset: 3px; }
+    .site-footer { padding: 52px 48px 18px; color: #edf3ed; background: #11271f; }
+    .footer-inner { width: min(1296px, 100%); margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: minmax(220px, 1.3fr) repeat(3, minmax(150px, .8fr)); gap: 40px; padding-bottom: 42px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; font-size: 15px; font-weight: 750; }
+    .footer-brand img { width: 34px; height: 34px; object-fit: contain; }
+    .footer-about { max-width: 260px; margin: 16px 0 0; color: #bdcbc0; font-size: 10px; line-height: 1.75; }
+    .footer-col h2 { margin: 2px 0 15px; color: var(--lime); font-size: 10px; font-weight: 750; }
+    .footer-links { display: grid; gap: 10px; }
+    .footer-links a { width: fit-content; color: #edf3ed; text-decoration: none; font-size: 10px; line-height: 1.4; }
+    .footer-links a:hover { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+    .footer-bottom { min-height: 43px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid rgba(255,255,255,.2); color: #afbeb3; font-size: 9px; }
+    .footer-note { text-align: right; }
+    .ella-widget { position: fixed; right: 22px; bottom: 20px; z-index: 10; width: min(380px, calc(100vw - 28px)); }
+    .ella-greeting { position: absolute; right: 25px; bottom: 76px; width: min(285px, calc(100vw - 64px)); padding: 40px 16px 14px; border: 1px solid #e3e7e3; border-radius: 11px; background: white; box-shadow: 0 5px 18px rgba(24,36,29,.15); }
+    .ella-greeting[hidden] { display: none; }
+    .ella-greeting-avatar { position: absolute; top: -30px; left: 50%; width: 60px; height: 60px; transform: translateX(-50%); border: 2px solid white; border-radius: 50%; object-fit: cover; background: #d8e4d2; box-shadow: 0 1px 5px rgba(20,35,27,.1); }
+    .ella-greeting-close { position: absolute; top: 5px; right: 7px; width: 24px; height: 24px; border: 0; color: #536159; background: transparent; font-size: 18px; cursor: pointer; }
+    .ella-greeting-open { display: block; width: 100%; padding: 0; border: 0; color: #202a24; background: transparent; text-align: left; font-size: 13px; line-height: 1.4; cursor: pointer; }
+    .ella-greeting-open:hover { color: #557941; }
+    .ella-greeting-note { margin: 6px 0 0; color: #6c7970; font-size: 8px; line-height: 1.45; }
+    .ella-launcher { position: absolute; right: 0; bottom: 0; width: 58px; height: 58px; display: grid; place-items: center; border: 1px solid #315443; border-radius: 50%; color: var(--lime); background: var(--forest); box-shadow: 0 5px 17px rgba(13,36,27,.2); cursor: pointer; transition: transform .18s ease, background .18s ease; }
+    .ella-launcher:hover { transform: translateY(-2px); background: #244b3a; }
+    .ella-launcher svg { width: 26px; height: 26px; }
+    .ella-launcher-help { position: absolute; top: -1px; right: -1px; width: 19px; height: 19px; display: grid; place-items: center; border: 2px solid white; border-radius: 50%; color: var(--forest); background: var(--lime); font-size: 9px; font-weight: 800; }
+    .ella-bar { display: grid; grid-template-columns: minmax(0, 1fr) 29px 36px; align-items: center; gap: 8px; padding: 8px; border-top: 1px solid #e5eae4; background: white; }
+    .ella-avatar { width: 36px; height: 36px; display: block; flex: 0 0 36px; border: 1px solid #d4dfd0; border-radius: 50%; object-fit: cover; background: #d8e4d2; }
+    .ella-field { min-width: 0; display: grid; gap: 3px; }
+    .ella-name { color: #587344; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .ella-question { width: 100%; min-width: 0; padding: 0; border: 0; outline: 0; color: var(--ink); background: transparent; font: inherit; font-size: 10px; }
+    .ella-question::placeholder { color: #78857d; }
+    .ella-send { width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 3px; color: white; background: var(--forest); font-size: 16px; cursor: pointer; }
+    .ella-send:hover { background: #2c5945; }
+    .ella-send:disabled { opacity: .65; cursor: wait; }
+    .ella-help { width: 27px; height: 27px; display: grid; place-items: center; border: 1px solid #cad7c7; border-radius: 50%; color: #405b46; background: white; font-size: 12px; font-weight: 750; cursor: pointer; }
+    .ella-help:hover { color: var(--forest); background: #eef3eb; }
+    .ella-panel { position: absolute; right: 0; bottom: 82px; width: 100%; max-height: min(520px, 72svh); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d9e1d9; border-radius: 7px; background: white; color: var(--ink); box-shadow: 0 14px 45px rgba(13,36,27,.2); }
+    .ella-panel[hidden] { display: none; }
+    .ella-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 15px 16px; color: white; background: var(--forest); }
+    .ella-identity { display: flex; align-items: center; gap: 10px; }
+    .ella-identity .ella-avatar { width: 40px; height: 40px; flex-basis: 40px; border-color: rgba(255,255,255,.4); }
+    .ella-kicker { margin: 0 0 4px; color: var(--lime); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
+    .ella-head h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 400; }
+    .ella-head p:last-child { margin: 4px 0 0; color: #c8d8cd; font-size: 8px; }
+    .ella-close { width: 27px; height: 27px; flex: 0 0 27px; border: 0; border-radius: 2px; color: white; background: transparent; font-size: 19px; cursor: pointer; }
+    .ella-close:hover { background: rgba(255,255,255,.12); }
+    .ella-messages { min-height: 100px; flex: 1; display: flex; flex-direction: column; gap: 9px; overflow-y: auto; padding: 14px 15px; }
+    .ella-message { max-width: 92%; align-self: flex-start; padding: 9px 11px; border-left: 2px solid #8da876; background: #f0f4ed; color: #34483b; font-size: 10px; line-height: 1.65; white-space: pre-wrap; }
+    .ella-message.user { align-self: flex-end; border-right: 2px solid #78916a; border-left: 0; background: #e4ecdf; }
+    .ella-message.pending { color: #718076; font-style: italic; }
+    .ella-related { align-self: flex-start; padding: 6px 0; border: 0; color: #45683d; background: transparent; font-size: 9px; font-weight: 750; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .ella-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 15px 11px; }
+    .ella-quick button { padding: 6px 8px; border: 1px solid #d6e0d4; border-radius: 2px; color: #405b46; background: white; font-size: 8px; cursor: pointer; }
+    .ella-quick button:hover { background: #f0f4ed; }
+    .ella-note { margin: 0; padding: 8px 15px 11px; border-top: 1px solid #e5eae4; color: #78847b; font-size: 8px; line-height: 1.5; }
+
+    @keyframes hero-swoosh {
+      0% { opacity: 0; transform: translateX(-28vw) rotate(12deg) skewX(-12deg); }
+      18% { opacity: .9; }
+      100% { opacity: 0; transform: translateX(160vw) rotate(12deg) skewX(-12deg); }
+    }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+    @media (max-width: 900px) {
+      .header-inner { padding: 0 26px; }
+      .header-nav a { padding: 0 10px; }
+      .hero-inner { padding-right: 30px; padding-left: 30px; }
+      .intro, .differentiators, .visibility { padding-right: 30px; padding-left: 30px; }
+      .offer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .goal-view { padding-right: 30px; padding-left: 30px; }
+      .module-browser { grid-template-columns: 220px minmax(0, 1fr); }
+      .module-panel { padding-right: 25px; padding-left: 25px; }
+      .module-items { gap: 0 18px; }
+      .visibility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .closing, .site-footer { padding-right: 30px; padding-left: 30px; }
+      .footer-grid { grid-template-columns: minmax(190px, 1.1fr) repeat(3, minmax(130px, .8fr)); gap: 22px; }
+      .contact-main { padding-right: 30px; padding-left: 30px; }
+      .contact-layout { gap: 32px; }
+    }
+    @media (max-width: 650px) {
+      .site-header { min-height: 104px; }
+      .header-inner { min-height: 104px; padding: 8px 17px 0; gap: 0; flex-wrap: wrap; }
+      .brand { min-width: 0; gap: 10px; }
+      .brand-logo { width: 36px; height: 36px; flex-basis: 36px; }
+      .brand-title { font-size: 15px; }
+      .brand-caption { margin-top: 1px; font-size: 7px; }
+      .header-nav { order: 3; width: calc(100% + 34px); flex: 0 0 calc(100% + 34px); gap: 0; margin: 0 -17px; padding: 0 5px; overflow-x: auto; border-top: 1px solid rgba(255,255,255,.13); scrollbar-width: none; }
+      .header-nav::-webkit-scrollbar { display: none; }
+      .header-nav a { min-height: 37px; flex: 0 0 auto; padding: 0 11px; font-size: 9px; }
+      .page-view { scroll-margin-top: 122px; }
+      .home-page, .home-page .hero { min-height: calc(100svh - 105px); }
+      .hero { min-height: 770px; min-height: min(810px, 100svh); background-position: 59% center; }
+      .hero::before { background: linear-gradient(90deg, rgba(11,31,24,.84), rgba(13,34,27,.64) 67%, rgba(14,32,27,.35)), linear-gradient(0deg, rgba(7,23,18,.7), transparent 52%); }
+      .hero::after { width: 100vw; min-width: 300px; left: -95%; }
+      .hero-inner { padding: 54px 22px 32px; }
+      .hero h1 { max-width: 430px; margin-top: 20px; font-size: clamp(47px, 13vw, 63px); }
+      .hero-copy { max-width: 360px; font-size: 12px; }
+      .hero-actions { align-items: flex-start; flex-direction: column; gap: 10px; margin-top: 23px; }
+      .hero-index { gap: 10px 0; margin-top: 33px; }
+      .hero-index span { margin-right: 15px; font-size: 8px; }
+      .intro { padding: 57px 21px 29px; }
+      .offer-grid { grid-template-columns: 1fr; }
+      .offer-item { min-height: 0; padding: 17px; }
+      .offer-item h3 { margin-top: 15px; }
+      .goal-view { min-height: calc(100svh - 104px); padding: 48px 21px 60px; }
+      .goal-lead { margin-bottom: 35px; }
+      .goal-principles { grid-template-columns: 1fr; }
+      .goal-principle, .goal-principle + .goal-principle { min-height: 0; padding: 17px 0; border-left: 0; }
+      .goal-principle + .goal-principle { border-top: 1px solid var(--line); }
+      .goal-principle h2 { margin: 12px 0 6px; }
+      .section-head, .diff-top, .visibility-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 25px; }
+      .section-head h2, .differentiators h2, .visibility h2 { font-size: 38px; }
+      .section-intro, .diff-top p, .visibility-head p { margin: 0; font-size: 11px; }
+      .module-browser { display: block; }
+      .module-tabs { flex-direction: row; gap: 0; overflow-x: auto; padding: 0; border-right: 0; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
+      .module-tab { flex: 0 0 auto; width: auto; min-height: 43px; padding: 8px 12px; border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+      .module-tab[aria-selected="true"] { border-left: 0; border-bottom-color: #668a56; }
+      .module-tab-number { width: auto; flex-basis: auto; }
+      .module-panel { min-height: 0; padding: 25px 1px 27px; }
+      .module-panel h3 { margin: 17px 0 9px; font-size: 32px; }
+      .module-description { font-size: 11px; }
+      .module-items { grid-template-columns: 1fr; gap: 0; margin-top: 24px; }
+      .module-item { padding: 12px 0; }
+      .differentiators { padding: 58px 21px; }
+      .diff-top { margin-bottom: 28px; }
+      .diff-row { grid-template-columns: 34px 1fr; gap: 10px 13px; padding: 18px 0; }
+      .diff-row h3 { font-size: 19px; }
+      .diff-row p { grid-column: 2; font-size: 10px; }
+      .visibility { padding: 58px 21px; }
+      .visibility-grid { grid-template-columns: 1fr 1fr; }
+      .visibility-item { min-height: 126px; padding: 14px; }
+      .visibility-item h3 { margin-top: 20px; font-size: 11px; }
+      .closing { padding: 37px 21px; }
+      .closing-inner { align-items: flex-start; flex-direction: column; gap: 22px; }
+      .closing h2 { font-size: 34px; }
+      .contact-hero { min-height: 350px; }
+      .contact-hero-inner { padding: 52px 21px; }
+      .contact-hero h1 { font-size: 43px; }
+      .contact-main { padding: 48px 21px 60px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 34px; }
+      .contact-fields { grid-template-columns: 1fr; gap: 12px; }
+      .contact-field.full { grid-column: auto; }
+      .contact-topics { padding: 20px 17px 22px; }
+      .site-footer { padding: 34px 21px 14px; }
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 27px 19px; padding-bottom: 28px; }
+      .footer-brand-block { grid-column: 1 / -1; }
+      .footer-col h2 { margin-bottom: 12px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; justify-content: center; gap: 5px; padding: 12px 0; }
+      .footer-note { text-align: left; }
+      .ella-widget { right: 12px; bottom: 12px; width: min(380px, calc(100% - 24px)); }
+      .ella-greeting { right: 20px; bottom: 69px; width: min(285px, calc(100vw - 44px)); padding: 37px 14px 12px; }
+      .ella-greeting-avatar { top: -27px; width: 54px; height: 54px; }
+      .ella-greeting-open { font-size: 12px; }
+      .ella-launcher { width: 54px; height: 54px; }
+      .ella-panel { bottom: 74px; max-height: min(520px, 72svh); }
+      .ella-bar { grid-template-columns: minmax(0, 1fr) 27px 34px; gap: 6px; padding: 7px; }
+      .ella-send { width: 32px; height: 32px; }
+    }
+  </style>
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" id="homeBrand" aria-label="TK WMS home">
+        <img class="brand-logo" src="/tk-wms-logo.png" alt="">
+        <span class="brand-copy"><span class="brand-title">TK WMS</span><span class="brand-caption">WAREHOUSE MANAGEMENT</span></span>
+      </a>
+      <nav class="header-nav" aria-label="TK WMS sections">
+        <a id="nav-home" href="#view-home" data-page-link="home" aria-current="location">Home</a>
+        <a id="nav-offers" href="#view-offers" data-page-link="offers">What We Offer</a>
+        <a id="nav-menus" href="#view-menus" data-page-link="menus">Explore</a>
+        <a id="nav-goal" href="#view-goal" data-page-link="goal">Our Goal</a>
+        <a id="nav-contact" href="#view-contact" data-page-link="contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="page-view home-page" id="view-home" data-page-view="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <p class="hero-kicker">Warehouse execution, configured around your operation</p>
+          <h1 id="hero-title">Make every<br>warehouse move<br><em>work smarter.</em></h1>
+          <p class="hero-copy">TK WMS brings receiving, inventory, fulfillment, and warehouse strategy into one connected operation, with tools to shape how the work gets done.</p>
+          <div class="hero-actions">
+            <button class="button-primary" type="button" data-open-page="offers">What TK WMS offers <span aria-hidden="true">→</span></button>
+            <button class="button-text" type="button" data-open-page="menus">Explore TK WMS</button>
+          </div>
+          <div class="hero-index" aria-label="Platform scope">
+            <span><b>01</b>EXECUTION</span><span><b>02</b>STRATEGY</span><span><b>03</b>VISIBILITY</span><span><b>04</b>CONFIGURATION</span>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page-view offer-view" id="view-offers" data-page-view="offers">
+      <section class="intro offer-intro" id="offers" aria-labelledby="offers-title">
+        <div class="section-shell">
+          <div class="section-head">
+            <div><p class="eyebrow">TK WMS platform</p><h2 id="offers-title">One platform across the warehouse lifecycle.</h2></div>
+            <p class="section-intro">TK WMS brings execution, configurable decision tools, and operational visibility together. Select an area in Explore for more detail about its menus.</p>
+          </div>
+          <div class="offer-grid">
+            <article class="offer-item"><span>01 / FOUNDATION</span><h3>Warehouse setup &amp; master data</h3><p>Build the reference structure used by warehouse work: SKU descriptions, categories and units of measure; locations, aisles, zones and layouts; LPN and carton definitions; suppliers, customers, carriers; and pick-route setup.</p></article>
+            <article class="offer-item"><span>02 / INBOUND</span><h3>Receiving &amp; putaway</h3><p>Follow arrivals through appointments and yard activity into receipt processing, returns and inspection, label generation, and putaway. The inbound views include appointment and receipt status so teams can see work waiting at the receiving stage.</p></article>
+            <article class="offer-item"><span>03 / INVENTORY</span><h3>Control &amp; accuracy</h3><p>Use the inventory workbench to review stock by warehouse and location, then move or adjust LPNs, place or release holds, run cycle counts, and investigate serial or recall activity.</p></article>
+            <article class="offer-item"><span>04 / OUTBOUND</span><h3>Order fulfillment</h3><p>Move demand through wave planning, allocation, picking, packing verification, and cartonization. Continue through shipment grouping, audits, and carrier shipping, with query menus for shipment follow-up.</p></article>
+            <article class="offer-item"><span>05 / VALUE-ADDED</span><h3>Kitting &amp; cross-docking</h3><p>Manage kitting bills of material, assembly or disassembly work orders, work stations, and production progress. Cross-dock work has a dedicated workbench for coordinating eligible inbound goods with outbound demand.</p></article>
+            <article class="offer-item"><span>06 / CONFIGURATION</span><h3>Rules, strategies &amp; workflows</h3><p>Configure how work is directed with the Strategy Engine, rule actions, suggested-location rules, reservation-attribute profiles, workflow policies, screen designers, and RF/voice menu tools.</p></article>
+          </div>
+          <div class="offer-action"><button class="button-primary" type="button" data-open-page="menus">Browse every menu area <span aria-hidden="true">→</span></button></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page-view menu-view" id="view-menus" data-page-view="menus">
+    <section class="intro" id="platform" aria-labelledby="platform-title">
+      <div class="section-shell">
+        <div class="section-head">
+          <div><p class="eyebrow">A connected warehouse operation</p><h2 id="platform-title">The whole operation.<br>Not just the next task.</h2></div>
+          <p class="section-intro">TK WMS spans the work visible across its menus, from master data and inbound execution through inventory control, outbound fulfillment, and value-added operations.</p>
+        </div>
+        <div class="module-browser">
+          <div class="module-tabs" role="tablist" aria-label="TK WMS menu areas" aria-orientation="vertical">
+            <button class="module-tab" id="tab-setup" role="tab" aria-selected="true" aria-controls="panel-setup" tabindex="0"><span class="module-tab-number">01</span>Setup &amp; Item Master</button>
+            <button class="module-tab" id="tab-inbound" role="tab" aria-selected="false" aria-controls="panel-inbound" tabindex="-1"><span class="module-tab-number">02</span>Inbound</button>
+            <button class="module-tab" id="tab-outbound" role="tab" aria-selected="false" aria-controls="panel-outbound" tabindex="-1"><span class="module-tab-number">03</span>Outbound</button>
+            <button class="module-tab" id="tab-inventory" role="tab" aria-selected="false" aria-controls="panel-inventory" tabindex="-1"><span class="module-tab-number">04</span>Inventory</button>
+            <button class="module-tab" id="tab-replenishment" role="tab" aria-selected="false" aria-controls="panel-replenishment" tabindex="-1"><span class="module-tab-number">05</span>Replenishment &amp; Tasks</button>
+            <button class="module-tab" id="tab-counts" role="tab" aria-selected="false" aria-controls="panel-counts" tabindex="-1"><span class="module-tab-number">06</span>Cycle Counts</button>
+            <button class="module-tab" id="tab-kitting" role="tab" aria-selected="false" aria-controls="panel-kitting" tabindex="-1"><span class="module-tab-number">07</span>Kitting</button>
+            <button class="module-tab" id="tab-crossdock" role="tab" aria-selected="false" aria-controls="panel-crossdock" tabindex="-1"><span class="module-tab-number">08</span>Cross-Docking</button>
+            <button class="module-tab" id="tab-strategy" role="tab" aria-selected="false" aria-controls="panel-strategy" tabindex="-1"><span class="module-tab-number">09</span>Strategy Engine</button>
+            <button class="module-tab" id="tab-rules" role="tab" aria-selected="false" aria-controls="panel-rules" tabindex="-1"><span class="module-tab-number">10</span>Rules &amp; Profiles</button>
+            <button class="module-tab" id="tab-workflow" role="tab" aria-selected="false" aria-controls="panel-workflow" tabindex="-1"><span class="module-tab-number">11</span>Workflow &amp; RF/Voice</button>
+            <button class="module-tab" id="tab-visibility" role="tab" aria-selected="false" aria-controls="panel-visibility" tabindex="-1"><span class="module-tab-number">12</span>Dashboards &amp; Queries</button>
+            <button class="module-tab" id="tab-tools" role="tab" aria-selected="false" aria-controls="panel-tools" tabindex="-1"><span class="module-tab-number">13</span>Tools, Admin &amp; Training</button>
+          </div>
+          <div class="module-panels">
+            <section class="module-panel" id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" tabindex="0">
+              <div class="module-panel-head"><span class="module-overline">Master data &amp; warehouse foundation</span><span class="module-count">01 / 13</span></div>
+              <h3>Set up the structure work depends on.</h3><p class="module-description">These are the reference records used by receiving, inventory, picking, and shipping. The menus cover item definitions and warehouse geography, plus the LPNs, packaging, partners, and routes that the execution screens refer back to.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Item Master</h4><p>Maintain each SKU's description, category, unit of measure, status, and other item attributes used in warehouse workflows. The item catalog also brings on-hand, allocated, and primary-location information into view for item review.</p></article>
+                <article class="module-item"><h4>Locations, aisles, zones &amp; layout</h4><p>Define the warehouse's addressable structure and group locations into aisles and zones. These records provide the location context used by inventory inquiries, putaway, picking, and other work.</p></article>
+                <article class="module-item"><h4>LPNs, cartons &amp; trading partners</h4><p>Maintain license-plate records and carton definitions, along with supplier, customer, and carrier records referenced by inbound and outbound activity.</p></article>
+                <article class="module-item"><h4>Pick-route setup</h4><p>Maintain warehouse pick routes as configuration records. Route setup sits alongside the physical location structure that picking work must navigate.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-inbound" role="tabpanel" aria-labelledby="tab-inbound" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Inbound operations</span><span class="module-count">02 / 13</span></div>
+              <h3>Coordinate what arrives and where it goes.</h3><p class="module-description">Inbound spans expected arrivals, dock-side work, receiving, inspection, and final placement. The dashboards and work queues help distinguish scheduled work from receipts or putaway tasks that still need attention.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Appointments &amp; yard</h4><p>Review inbound appointments, arrivals, and yard activity. The inbound dashboard surfaces appointments due and arrivals at the dock so teams can monitor the receiving queue.</p></article>
+                <article class="module-item"><h4>Receiving &amp; ASN check-in</h4><p>Work through receipt screens, including purchase-order receipt and ASN check-in paths observed in TK WMS, then follow a receipt into subsequent warehouse work.</p></article>
+                <article class="module-item"><h4>Returns &amp; quality inspection</h4><p>Keep return processing and inspection work distinct from ordinary receiving. Inspection gives teams a review step before returned or received goods continue through their configured flow.</p></article>
+                <article class="module-item"><h4>Labels &amp; putaway</h4><p>Generate warehouse labels and track receipts awaiting putaway. Putaway dashboards show pending work and help teams follow goods from the dock toward a storage location.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-outbound" role="tabpanel" aria-labelledby="tab-outbound" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Outbound operations</span><span class="module-count">03 / 13</span></div>
+              <h3>Move orders from release to shipment.</h3><p class="module-description">Outbound connects demand planning to floor execution and shipping. The menu set includes both planning controls and the individual work stages that follow an order after it is released.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Orders &amp; wave planning</h4><p>Review outbound orders, build waves from eligible work, and use the Wave Planning controls for planning criteria and overrides. The observed flow stages allocation, route, and release actions before work enters execution.</p></article>
+                <article class="module-item"><h4>Allocation</h4><p>Assign inventory to order demand as part of the wave and fulfillment flow. Allocation dashboards and inquiries provide a way to monitor that planning stage alongside released work.</p></article>
+                <article class="module-item"><h4>Picking, packing &amp; cartonization</h4><p>Coordinate pick tasks and routes, then move orders into pack verification and cartonization. Consolidation and picking views help monitor work across these related steps.</p></article>
+                <article class="module-item"><h4>Shipment grouping, audit &amp; carrier shipping</h4><p>Group shipments, run shipping audits, and process carrier shipping. Shipment queries provide a separate way to look up shipment activity after fulfillment work advances.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-inventory" role="tabpanel" aria-labelledby="tab-inventory" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Inventory control</span><span class="module-count">04 / 13</span></div>
+              <h3>Understand and control stock at the unit level.</h3><p class="module-description">Inventory controls combine a warehouse workbench with focused actions and traceability inquiries. Teams can review where stock sits, how much is allocated, and whether an LPN is available, held, or awaiting follow-up.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Inventory workbench</h4><p>Review stock by warehouse, item, and location, including on-hand and allocated quantities. Workbench filters include held and zero-quantity inventory, with multi-select actions for supported inventory work.</p></article>
+                <article class="module-item"><h4>Adjustments &amp; LPN moves</h4><p>Use adjustment workflows to correct inventory records and LPN move workflows to change where a handling unit is stored. These actions are separate from read-only inventory inquiries.</p></article>
+                <article class="module-item"><h4>Holds &amp; reservation attributes</h4><p>Place or release LPN holds and review reservation controls. Reservation-attribute profiles are configured separately and can be used by the system's reservation logic.</p></article>
+                <article class="module-item"><h4>Serial tracking &amp; recalls</h4><p>Use serial-tracking inquiries to trace serialized stock and recall menus to find and manage inventory associated with a recall process.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-replenishment" role="tabpanel" aria-labelledby="tab-replenishment" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Work management</span><span class="module-count">05 / 13</span></div>
+              <h3>Keep forward work supplied and prioritized.</h3><p class="module-description">This area connects replenishment setup with executable tasks. Methods define the available replenishment approach; requests and the task queue show work as it is raised, assigned, prioritized, and completed.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Replenishment methods</h4><p>Maintain replenishment methods and their associated setup. These are configuration menus, separate from the requests that operators execute.</p></article>
+                <article class="module-item"><h4>Replenishment requests</h4><p>Review requests, their priority and status, and the inventory movement needed to replenish forward-pick work.</p></article>
+                <article class="module-item"><h4>Task queue &amp; task monitoring</h4><p>View tasks by work type and status, follow assignment and progress, and use task dashboards to monitor activity across warehouse areas.</p></article>
+                <article class="module-item"><h4>Priority work &amp; exceptions</h4><p>Surface high-priority or overdue work for review. The overview dashboard groups past-due picks, receipts awaiting putaway, replenishment requests, and open count tasks.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-counts" role="tabpanel" aria-labelledby="tab-counts" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Inventory accuracy</span><span class="module-count">06 / 13</span></div>
+              <h3>Plan counts and review discrepancies.</h3><p class="module-description">Cycle counting gives teams a controlled workflow for validating system inventory against a physical count, tracking the work, and reviewing differences before they are resolved.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Count plans</h4><p>Organize count work for selected inventory or locations and provide the plan from which count tasks are worked.</p></article>
+                <article class="module-item"><h4>Count tasks</h4><p>Assign and track count activities, due status, and completion as part of the wider warehouse task workflow.</p></article>
+                <article class="module-item"><h4>Variance review</h4><p>Bring count differences forward for review and follow-up instead of treating a count as a simple quantity lookup.</p></article>
+                <article class="module-item"><h4>Count dashboards</h4><p>Monitor open counts, work due during a shift, and accuracy indicators through the count and performance views.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-kitting" role="tabpanel" aria-labelledby="tab-kitting" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Value-added operations</span><span class="module-count">07 / 13</span></div>
+              <h3>Manage assembly work inside the warehouse.</h3><p class="module-description">The kitting menus represent value-added warehouse work: define the kit structure, create assembly or disassembly work orders, carry out work at configured stations, and monitor progress.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Bills of material</h4><p>Maintain the bill-of-material records that describe the components used by a kit and referenced by its work orders.</p></article>
+                <article class="module-item"><h4>Assembly &amp; disassembly work orders</h4><p>Create and follow planned work to assemble a kit or disassemble one back into component handling.</p></article>
+                <article class="module-item"><h4>Production stations</h4><p>Configure the stations where kitting work is performed, then use those stations as the work moves through production.</p></article>
+                <article class="module-item"><h4>Production monitoring</h4><p>Review work-order progress and station activity so in-process work can be followed through completion.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-crossdock" role="tabpanel" aria-labelledby="tab-crossdock" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Flow-through operations</span><span class="module-count">08 / 13</span></div>
+              <h3>Connect inbound goods to outbound demand.</h3><p class="module-description">Cross-docking is presented as its own operational workbench rather than another storage-location screen. It focuses on coordinating eligible inbound product with outbound requirements for flow-through handling.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Cross-Dock Workbench</h4><p>Open the dedicated workspace for reviewing and coordinating cross-dock activity.</p></article>
+                <article class="module-item"><h4>Inbound-to-outbound coordination</h4><p>Follow the relationship between eligible inbound goods and outbound demand as cross-dock work is planned and handled.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-strategy" role="tabpanel" aria-labelledby="tab-strategy" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Configurable decision logic</span><span class="module-count">09 / 13</span></div>
+              <h3>Shape the logic that directs warehouse work.</h3><p class="module-description">TK WMS places strategy configuration beside day-to-day execution. These menus are for implementation and operations teams maintaining how the system should make configured warehouse decisions—not for viewing a live transaction queue.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Strategy Engine</h4><p>Maintain strategies used by configured warehouse processes. The menu provides a central place to work with strategy definitions rather than hard-coding every decision into a screen.</p></article>
+                <article class="module-item"><h4>Strategy actions</h4><p>Review the actions associated with strategy and rule behavior. Actions define what the system is configured to do when a decision path applies.</p></article>
+                <article class="module-item"><h4>Suggested Location Rules</h4><p>Configure the rules used to guide suggested warehouse locations in supported workflows, connecting location setup with the decision logic used during execution.</p></article>
+                <article class="module-item"><h4>Reservation Attribute Profiles</h4><p>Define attribute profiles used by inventory reservation controls, adding a configurable layer to how stock can be selected for warehouse demand.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Rules &amp; policies</span><span class="module-count">10 / 13</span></div>
+              <h3>Make warehouse policies explicit and manageable.</h3><p class="module-description">Rules &amp; Profiles collects rule setup, actions, workflow policies, and reservation-related profiles. It is a configuration surface for authorized teams; the public guide explains the menu purpose without exposing rule values or customer configuration.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Business Rules Assistant setup</h4><p>Open the assistant setup area associated with business-rule configuration and the policies that guide warehouse processes.</p></article>
+                <article class="module-item"><h4>Rule Actions</h4><p>Maintain the actions linked to configured business rules, providing the operational outcome side of rule-driven behavior.</p></article>
+                <article class="module-item"><h4>Workflow Policies</h4><p>Review and configure policies associated with workflow execution, keeping policy setup distinct from the screens and menus operators use.</p></article>
+                <article class="module-item"><h4>Profiles &amp; attributes</h4><p>Manage reservation-attribute profiles used by reservation logic, in conjunction with strategy and inventory configuration.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-workflow" role="tabpanel" aria-labelledby="tab-workflow" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Configurable user experience</span><span class="module-count">11 / 13</span></div>
+              <h3>Design how warehouse users interact with work.</h3><p class="module-description">The system exposes designers and menu setup for configuring the experience around warehouse tasks. These are implementation tools alongside the workflows they help present.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Screen Designer</h4><p>Configure the screens used in supported warehouse workflows, including the information presented as users perform their tasks.</p></article>
+                <article class="module-item"><h4>Workflow Designer &amp; Policies</h4><p>Work with workflow structure and its policies so process steps and the rules governing them can be managed in the configuration area.</p></article>
+                <article class="module-item"><h4>RF Menus</h4><p>Maintain radio-frequency menu paths used by warehouse workers on handheld devices, separate from the public product site's navigation.</p></article>
+                <article class="module-item"><h4>Voice configuration</h4><p>Review voice-related options for guided warehouse tasks as part of the configurable worker experience.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-visibility" role="tabpanel" aria-labelledby="tab-visibility" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Dashboards &amp; inquiries</span><span class="module-count">12 / 13</span></div>
+              <h3>Follow performance and investigate activity.</h3><p class="module-description">Dashboards summarize work by warehouse function; queries provide lookup paths into operational records and history. Together they help users move from an area-level view to a specific shipment, receipt, transaction, serial, or user activity inquiry.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Named dashboard views</h4><p>Menu views include Putaway, Picking, Allocation, Replenishment, Inbound Performance, Task Activity, Consolidation, and Picking Performance dashboards.</p></article>
+                <article class="module-item"><h4>Inbound &amp; putaway</h4><p>Follow inbound performance and putaway work, including receipts waiting for their next warehouse action.</p></article>
+                <article class="module-item"><h4>Picking, allocation &amp; consolidation</h4><p>Review work at the planning and fulfillment stages, including picking performance and consolidation activity.</p></article>
+                <article class="module-item"><h4>Queries &amp; traceability</h4><p>Use shipment, inventory, receipt, and transaction queries, plus serial-tracking and user-activity inquiries to investigate specific history.</p></article>
+              </div>
+            </section>
+            <section class="module-panel" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools" tabindex="0" hidden>
+              <div class="module-panel-head"><span class="module-overline">Implementation &amp; administration</span><span class="module-count">13 / 13</span></div>
+              <h3>Give teams tools to configure and support the system.</h3><p class="module-description">These menus serve implementation, integration, administration, and training tasks around the operational WMS. They include both design-time tools and access/setup controls.</p>
+              <div class="module-items">
+                <article class="module-item"><h4>Report, Label &amp; Interface Designers</h4><p>Use separate designer menus to maintain report layouts, warehouse labels, and system-interface definitions.</p></article>
+                <article class="module-item"><h4>Integration Sync &amp; data utilities</h4><p>Review integration synchronization, use import/export utilities for supported data workflows, and explore the API playground for API-oriented work.</p></article>
+                <article class="module-item"><h4>Warehouse, user &amp; access administration</h4><p>Configure warehouse and business-unit records, user accounts, roles, access permissions, and the menus presented to users.</p></article>
+                <article class="module-item"><h4>Training Phases 1–6</h4><p>Follow the six phased training areas exposed in TK WMS to organize product learning by stage.</p></article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <section class="page-view goal-view" id="view-goal" data-page-view="goal">
+      <div class="goal-shell">
+        <div class="goal-lead">
+          <p class="eyebrow">OUR GOAL</p>
+          <h1>Give warehouse teams more <em>clarity and control.</em></h1>
+          <p>The product goal is to give warehouse teams a consistent path from configured setup to daily execution and back to review. TK WMS places task-oriented work beside the strategy, rules, and inquiry tools authorized teams use to shape and inspect the operation. This describes the product's intent, not a promise of measured business results.</p>
+        </div>
+        <div class="goal-principles">
+          <article class="goal-principle"><span>01 / EXECUTE</span><h2>Keep work connected</h2><p>Warehouse activity is represented as related steps rather than isolated screens: receipt work leads to putaway and inventory, while available stock supports replenishment and order fulfillment.</p></article>
+          <article class="goal-principle"><span>02 / CONFIGURE</span><h2>Make the logic manageable</h2><p>Strategy, rules, workflow policies, and screen or RF/voice designers are exposed as setup areas for authorized teams, alongside the tasks those settings support.</p></article>
+          <article class="goal-principle"><span>03 / UNDERSTAND</span><h2>See work at more than one level</h2><p>Dashboards summarize work by function; query menus provide a path to investigate specific shipment, receipt, inventory, transaction, serial, or user-activity records.</p></article>
+        </div>
+      </div>
+
+    <section class="differentiators" id="differentiators" aria-labelledby="differentiators-title">
+      <div class="diff-shell">
+        <div class="diff-top">
+          <div><p class="eyebrow">Beyond day-to-day execution</p><h2 id="differentiators-title">The controls behind the operation.</h2></div>
+          <p>These menus are notable because TK WMS exposes configuration surfaces beside execution: named strategy and rule tools, location and reservation controls, screen and RF/voice designers, and implementation utilities. They are setup tools for authorized teams, not claims that every process is automatically configurable.</p>
+        </div>
+        <div class="diff-list">
+          <article class="diff-row"><span class="diff-number">01</span><h3>Strategy Engine &amp; actions</h3><p>TK WMS exposes strategy definitions and strategy actions as configurable menus. Authorized teams can maintain decision logic used by configured warehouse processes instead of treating strategy as a hidden, fixed screen.</p></article>
+          <article class="diff-row"><span class="diff-number">02</span><h3>Suggested Location Rules &amp; Reservation Attributes</h3><p>Separate menus cover rules for suggested locations and profiles for reservation attributes. They address distinct decisions: where work may be directed and which inventory attributes matter during reservation.</p></article>
+          <article class="diff-row"><span class="diff-number">03</span><h3>Workflow, RF, and voice design</h3><p>Screen Designer, Workflow Designer, Workflow Policies, RF menu setup, and voice-related options expose the worker-facing process as a configurable area. The public site describes these tools without revealing a customer's workflow settings.</p></article>
+          <article class="diff-row"><span class="diff-number">04</span><h3>Business Rules Assistant &amp; replenishment methods</h3><p>Business-rule setup, Rule Actions, and the Business Rules Assistant appear alongside replenishment-method configuration, putting rule maintenance and repeatable warehouse-work setup in the same configuration story.</p></article>
+          <article class="diff-row"><span class="diff-number">05</span><h3>Implementation tools and training</h3><p>Report, Label, and Interface Designers sit alongside Integration Sync, import/export, and an API playground. Administration includes warehouse, business-unit, user, role, access, and menu setup, plus Training Phases 1–6.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="visibility" id="visibility" aria-labelledby="visibility-title">
+      <div class="section-shell">
+        <div class="visibility-head">
+          <div><p class="eyebrow">Operational visibility</p><h2 id="visibility-title">See the work from every angle.</h2></div>
+          <p>TK WMS separates summary views from lookup tools. Dashboards organize work and performance by function; queries provide paths into shipment, receipt, inventory, serial, transaction, and user-activity history.</p>
+        </div>
+        <div class="visibility-grid">
+          <article class="visibility-item"><span>PERFORMANCE</span><h3>Inbound &amp; putaway</h3><p>Review inbound performance, appointments, arrivals, and receipts waiting for putaway.</p></article>
+          <article class="visibility-item"><span>FULFILLMENT</span><h3>Allocation, picking &amp; consolidation</h3><p>Follow order work across planning and floor execution, including picking and consolidation views.</p></article>
+          <article class="visibility-item"><span>INVENTORY</span><h3>Replenishment &amp; cycle counts</h3><p>Monitor replenishment requests, open count tasks, and count-related review activity.</p></article>
+          <article class="visibility-item"><span>INQUIRIES</span><h3>Shipment, inventory &amp; receipt</h3><p>Open lookup paths for shipment, inventory, receipt, and transaction records.</p></article>
+          <article class="visibility-item"><span>ACTIVITY</span><h3>Task &amp; user history</h3><p>Review task activity and user-activity inquiries as separate operational trace views.</p></article>
+          <article class="visibility-item"><span>CONFIGURATION</span><h3>Warehouse, business unit &amp; access</h3><p>Set up warehouse and business-unit context, user roles, access, and menu availability.</p></article>
+          <article class="visibility-item"><span>LABELS &amp; REPORTS</span><h3>Designer tools</h3><p>Use report and label designers to maintain operational output definitions.</p></article>
+          <article class="visibility-item"><span>LEARNING</span><h3>Training Phases 1–6</h3><p>Use the six phased training areas to organize product learning by stage.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="closing-inner">
+        <h2>One warehouse platform.<br>More ways to shape the work.</h2>
+        <button class="button-primary" type="button" data-open-page="menus">Explore TK WMS <span aria-hidden="true">↑</span></button>
+      </div>
+    </section>
+    </section>
+    <section class="page-view contact-view" id="view-contact" data-page-view="contact">
+      <section class="contact-hero" aria-labelledby="contact-title">
+        <div class="contact-hero-inner">
+          <p class="hero-kicker">TK WMS · CONTACT</p>
+          <h1 id="contact-title">Let’s talk warehouse operations.</h1>
+          <p>Tell us what your team is exploring across receiving, inventory, fulfillment, strategy, or warehouse configuration.</p>
+        </div>
+      </section>
+      <section class="contact-main" aria-labelledby="contact-form-title">
+        <div class="contact-shell">
+          <div class="contact-layout">
+            <div class="contact-copy">
+              <p class="eyebrow">START A CONVERSATION</p>
+              <h2 id="contact-form-title">What would you like to discuss?</h2>
+              <p>Share a little about your operation and the TK WMS areas you’re interested in. Please keep your message general; don’t include live inventory, order, customer, or credential data.</p>
+              <form class="contact-form" id="contactForm">
+                <div class="contact-fields">
+                  <div class="contact-field"><label for="contactFirstName">First name *</label><input id="contactFirstName" name="firstName" autocomplete="given-name" required></div>
+                  <div class="contact-field"><label for="contactLastName">Last name *</label><input id="contactLastName" name="lastName" autocomplete="family-name" required></div>
+                  <div class="contact-field"><label for="contactCompany">Company *</label><input id="contactCompany" name="company" autocomplete="organization" required></div>
+                  <div class="contact-field"><label for="contactEmail">Business email *</label><input id="contactEmail" name="email" type="email" autocomplete="email" required></div>
+                  <div class="contact-field"><label for="contactPhone">Phone number</label><input id="contactPhone" name="phone" type="tel" autocomplete="tel"></div>
+                  <div class="contact-field"><label for="contactInterest">Area of interest *</label><select id="contactInterest" name="interest" required><option value="" selected disabled>Select an area</option><option>Warehouse setup and Item Master</option><option>Inbound, receiving, and putaway</option><option>Inventory and cycle counts</option><option>Outbound, wave planning, and shipping</option><option>Kitting and cross-docking</option><option>Strategy, rules, and workflow design</option><option>Dashboards, integrations, and API tools</option><option>Other</option></select></div>
+                  <div class="contact-field full"><label for="contactMessage">Message *</label><textarea id="contactMessage" name="message" rows="5" required></textarea></div>
+                </div>
+                <div class="contact-form-footer"><button class="button-primary" type="submit">Send inquiry <span aria-hidden="true">→</span></button><p class="contact-form-note">Form preview only: submissions are not sent or stored yet. A verified TK WMS contact destination must be configured before launch.</p></div>
+                <p class="contact-status" id="contactStatus" role="status" hidden></p>
+              </form>
+            </div>
+            <aside class="contact-topics" aria-labelledby="contactTopicsTitle">
+              <p class="eyebrow">EXPLORE THE PLATFORM</p>
+              <h3 id="contactTopicsTitle">Still deciding where to start?</h3>
+              <p>Read more about the menu areas before sending an inquiry.</p>
+              <nav class="contact-topic-links" aria-label="Popular TK WMS topics">
+                <a href="#view-menus" data-module-target="tab-inbound">Receiving &amp; putaway</a>
+                <a href="#view-menus" data-module-target="tab-outbound">Wave planning &amp; fulfillment</a>
+                <a href="#view-menus" data-module-target="tab-strategy">Strategy &amp; rules</a>
+                <a href="#view-menus" data-module-target="tab-workflow">Workflow, RF &amp; voice</a>
+              </nav>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand-block">
+          <a class="footer-brand" href="#top" id="footerHome"><img src="/tk-wms-logo.png" alt="">TK WMS</a>
+          <p class="footer-about">Warehouse execution, inventory control, and configurable tools for the work behind every move.</p>
+        </div>
+        <nav class="footer-col" aria-label="Warehouse operations">
+          <h2>Warehouse operations</h2>
+          <div class="footer-links">
+            <a href="#platform" data-module-target="tab-setup">Setup &amp; Item Master</a>
+            <a href="#platform" data-module-target="tab-inbound">Inbound</a>
+            <a href="#platform" data-module-target="tab-outbound">Outbound</a>
+            <a href="#platform" data-module-target="tab-inventory">Inventory</a>
+            <a href="#platform" data-module-target="tab-replenishment">Replenishment &amp; Tasks</a>
+            <a href="#platform" data-module-target="tab-counts">Cycle Counts</a>
+            <a href="#platform" data-module-target="tab-kitting">Kitting</a>
+            <a href="#platform" data-module-target="tab-crossdock">Cross-Docking</a>
+          </div>
+        </nav>
+        <nav class="footer-col" aria-label="Configuration tools">
+          <h2>Configuration</h2>
+          <div class="footer-links">
+            <a href="#platform" data-module-target="tab-strategy">Strategy Engine</a>
+            <a href="#platform" data-module-target="tab-rules">Rules &amp; Profiles</a>
+            <a href="#platform" data-module-target="tab-workflow">Workflow &amp; RF/Voice</a>
+            <a href="#platform" data-module-target="tab-tools">Tools, Admin &amp; Training</a>
+          </div>
+        </nav>
+        <nav class="footer-col" aria-label="Visibility and product information">
+          <h2>Visibility &amp; product</h2>
+          <div class="footer-links">
+            <a href="#platform" data-module-target="tab-visibility">Dashboards &amp; Queries</a>
+            <a href="#view-goal" data-page-target="goal">What sets TK WMS apart</a>
+            <a href="#view-goal" data-page-target="goal">Our goal</a>
+            <a href="#view-contact" data-page-target="contact">Contact TK WMS</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>TK WMS · Warehouse management</span><span class="footer-note">Product overview · Capabilities may vary by role and configuration</span></div>
+    </div>
+  </footer>
+  <div class="ella-widget">
+    <section class="ella-greeting" id="ellaGreeting" aria-label="Ella greeting">
+      <img class="ella-greeting-avatar" src="/ella-avatar.jpg" alt="Stock portrait representing Ella, the TK WMS AI guide">
+      <button class="ella-greeting-close" id="ellaGreetingClose" type="button" aria-label="Dismiss Ella’s greeting">×</button>
+      <button class="ella-greeting-open" id="ellaGreetingOpen" type="button">Hi, I’m Ella, your TK WMS AI guide. How can I help?</button>
+      <p class="ella-greeting-note">AI product guide · answers from TK WMS product information</p>
+    </section>
+    <section class="ella-panel" id="ellaPanel" aria-labelledby="ellaTitle" hidden>
+      <header class="ella-head">
+        <div class="ella-identity"><img class="ella-avatar" src="/ella-avatar.jpg" alt="Stock portrait representing Ella, the TK WMS AI guide"><div><p class="ella-kicker">TK WMS AI GUIDE</p><h2 id="ellaTitle">Ella</h2><p>Ask about menus, workflows, and capabilities.</p></div></div>
+        <button class="ella-close" id="ellaClose" type="button" aria-label="Close Ella">×</button>
+      </header>
+      <div class="ella-messages" id="ellaMessages" role="log" aria-live="polite" aria-relevant="additions">
+        <div class="ella-message">Hi, I’m Ella. Ask me about a TK WMS menu, strategy, or workflow and I’ll point you to the details.</div>
+      </div>
+      <div class="ella-quick" aria-label="Suggested questions">
+        <button type="button" data-ella-question="What does the Strategy Engine do?">What does Strategy Engine do?</button>
+        <button type="button" data-ella-question="What is included in RF and voice workflows?">RF &amp; voice</button>
+        <button type="button" data-ella-question="How does cross-docking work?">Cross-docking</button>
+      </div>
+      <p class="ella-note" id="ellaPrivacy">Powered by OpenAI. Answers use public TK WMS product information. Don’t share operational, customer, personal, or credential data.</p>
+      <form class="ella-bar" id="ellaForm">
+        <label class="ella-field" for="ellaQuestion"><span class="ella-name">Ask Ella</span><input class="ella-question" id="ellaQuestion" name="question" type="text" placeholder="Ask about TK WMS" autocomplete="off" maxlength="1200" aria-describedby="ellaPrivacy" aria-controls="ellaPanel" aria-expanded="false"></label>
+        <button class="ella-help" id="ellaHelp" type="button" aria-label="About Ella" title="About Ella">?</button>
+        <button class="ella-send" type="submit" aria-label="Send question to Ella" title="Ask Ella">↑</button>
+      </form>
+    </section>
+    <button class="ella-launcher" id="ellaLauncher" type="button" aria-label="Open Ella chat" aria-controls="ellaPanel" aria-expanded="false" title="Ask Ella">
+      <svg viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M11 7.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2.5v4l-5-4H11a2 2 0 0 1-2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 5.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-6.5l-5 4v-4H5a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="ella-launcher-help" aria-hidden="true">?</span>
+    </button>
+  </div>
+  <script>
+    const pageLinks = [...document.querySelectorAll("[data-page-link]")];
+    const productTabs = [...document.querySelectorAll('.module-tabs [role="tab"]')];
+
+    function activatePage(pageName, focus = false) {
+      const target = document.querySelector(`[data-page-view="${pageName}"]`);
+      if (!target) return;
+      setCurrentPage(pageName);
+      if (focus) document.getElementById(`nav-${pageName}`).focus();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    pageLinks.forEach(link => link.addEventListener("click", () => setCurrentPage(link.dataset.pageLink)));
+
+    document.querySelectorAll("[data-open-page]").forEach(button => button.addEventListener("click", () => activatePage(button.dataset.openPage)));
+    document.querySelectorAll("[data-page-target]").forEach(link => link.addEventListener("click", event => {
+      event.preventDefault();
+      activatePage(link.dataset.pageTarget);
+    }));
+    document.getElementById("homeBrand").addEventListener("click", event => { event.preventDefault(); activatePage("home"); });
+    document.getElementById("footerHome").addEventListener("click", event => { event.preventDefault(); activatePage("home"); });
+
+    function activateTab(tab, focus = false) {
+      productTabs.forEach(candidate => {
+        const isSelected = candidate === tab;
+        candidate.setAttribute("aria-selected", String(isSelected));
+        candidate.tabIndex = isSelected ? 0 : -1;
+        document.getElementById(candidate.getAttribute("aria-controls")).hidden = !isSelected;
+      });
+      if (focus) tab.focus();
+    }
+
+    productTabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateTab(tab));
+      tab.addEventListener("keydown", event => {
+        let nextIndex;
+        if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % productTabs.length;
+        else if (event.key === "ArrowUp" || event.key === "ArrowLeft") nextIndex = (index - 1 + productTabs.length) % productTabs.length;
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = productTabs.length - 1;
+        else return;
+        event.preventDefault();
+        activateTab(productTabs[nextIndex], true);
+      });
+    });
+
+    document.querySelectorAll("[data-module-target]").forEach(link => link.addEventListener("click", event => {
+      event.preventDefault();
+      activatePage("menus");
+      const tab = document.getElementById(link.dataset.moduleTarget);
+      if (tab) activateTab(tab);
+    }));
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const status = document.getElementById("contactStatus");
+      status.textContent = "No inquiry was sent. This preview form is not connected to a TK WMS inbox yet.";
+      status.hidden = false;
+    });
+
+    const ellaPanel = document.getElementById("ellaPanel");
+    const ellaGreeting = document.getElementById("ellaGreeting");
+    const ellaLauncher = document.getElementById("ellaLauncher");
+    const ellaInput = document.getElementById("ellaQuestion");
+    const ellaMessages = document.getElementById("ellaMessages");
+    const pageSections = [...document.querySelectorAll("[data-page-view]")];
+    let ellaGreetingDismissed = false;
+
+    function setCurrentPage(pageName) {
+      document.body.dataset.page = pageName;
+      pageLinks.forEach(link => {
+        if (link.dataset.pageLink === pageName) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+      ellaGreeting.hidden = pageName !== "home" || ellaGreetingDismissed || !ellaPanel.hidden;
+    }
+
+    let pageScrollScheduled = false;
+    function updatePageFromScroll() {
+      let current = pageSections[0];
+      const threshold = Math.min(145, window.innerHeight * .28);
+      for (const section of pageSections) {
+        if (section.getBoundingClientRect().top <= threshold) current = section;
+        else break;
+      }
+      if (current) setCurrentPage(current.dataset.pageView);
+    }
+
+    window.addEventListener("scroll", () => {
+      if (pageScrollScheduled) return;
+      pageScrollScheduled = true;
+      requestAnimationFrame(() => {
+        pageScrollScheduled = false;
+        updatePageFromScroll();
+      });
+    }, { passive: true });
+    window.addEventListener("resize", updatePageFromScroll);
+
+    function setEllaOpen(isOpen, returnFocus = false) {
+      ellaPanel.hidden = !isOpen;
+      ellaInput.setAttribute("aria-expanded", String(isOpen));
+      ellaLauncher.setAttribute("aria-expanded", String(isOpen));
+      if (isOpen) ellaGreeting.hidden = true;
+      else ellaGreeting.hidden = ellaGreetingDismissed || document.body.dataset.page !== "home";
+      if (returnFocus) ellaLauncher.focus();
+    }
+
+    function addEllaMessage(text, isUser = false, relatedTab = null) {
+      const message = document.createElement("div");
+      message.className = `ella-message${isUser ? " user" : ""}`;
+      message.textContent = text;
+      ellaMessages.append(message);
+      if (relatedTab) {
+        const link = document.createElement("button");
+        link.className = "ella-related";
+        link.type = "button";
+        link.textContent = "Open related menu details →";
+        link.addEventListener("click", () => {
+          activatePage("menus");
+          activateTab(document.getElementById(relatedTab));
+          setEllaOpen(false);
+        });
+        ellaMessages.append(link);
+      }
+      ellaMessages.scrollTop = ellaMessages.scrollHeight;
+      return message;
+    }
+
+    const ellaTopics = [
+      { pattern: /strategy|suggested.?location|reservation attribute/i, tab: "tab-strategy" },
+      { pattern: /business rule|rule action|policy|profile/i, tab: "tab-rules" },
+      { pattern: /rf|voice|workflow|screen design|menu design/i, tab: "tab-workflow" },
+      { pattern: /inbound|receiv|appointment|yard|putaway|return|inspection/i, tab: "tab-inbound" },
+      { pattern: /outbound|order|wave|pick|pack|ship|carrier|allocation/i, tab: "tab-outbound" },
+      { pattern: /inventory|lpn|hold|serial|recall|adjust/i, tab: "tab-inventory" },
+      { pattern: /replenish|task|priority/i, tab: "tab-replenishment" },
+      { pattern: /cycle.?count|count accuracy|variance/i, tab: "tab-counts" },
+      { pattern: /kit|bill of material|work order|assembly|disassembl/i, tab: "tab-kitting" },
+      { pattern: /cross.?dock/i, tab: "tab-crossdock" },
+      { pattern: /dashboard|analytics|query|performance|transaction|report/i, tab: "tab-visibility" },
+      { pattern: /api|integrat|import|export|label|interface|admin|role|user|training/i, tab: "tab-tools" },
+      { pattern: /item|master data|location|aisle|zone|supplier|customer|carton|pick route|warehouse setup/i, tab: "tab-setup" }
+    ];
+
+    function relatedEllaTab(question) {
+      return ellaTopics.find(topic => topic.pattern.test(question))?.tab || null;
+    }
+
+    const ellaConversation = [];
+    const ellaSend = document.querySelector(".ella-send");
+    let ellaBusy = false;
+
+    function rememberEllaMessage(role, content) {
+      ellaConversation.push({ role, content });
+      if (ellaConversation.length > 10) ellaConversation.splice(0, ellaConversation.length - 10);
+    }
+
+    function setEllaBusy(isBusy) {
+      ellaBusy = isBusy;
+      ellaInput.disabled = isBusy;
+      ellaSend.disabled = isBusy;
+      ellaSend.textContent = isBusy ? "…" : "↑";
+      ellaSend.setAttribute("aria-label", isBusy ? "Ella is responding" : "Send question to Ella");
+    }
+
+    async function askElla(question) {
+      const cleanQuestion = question.trim();
+      if (!cleanQuestion || ellaBusy) return;
+      setEllaOpen(true);
+      rememberEllaMessage("user", cleanQuestion);
+      addEllaMessage(cleanQuestion, true);
+      ellaInput.value = "";
+      const pendingMessage = addEllaMessage("Ella is thinking…");
+      pendingMessage.classList.add("pending");
+      setEllaBusy(true);
+
+      try {
+        const response = await fetch("/api/ella", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: ellaConversation.slice(-10) })
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          if (payload.error === "ella_not_configured") throw new Error("Ella’s AI service isn’t connected yet. You can still browse Explore for verified product details.");
+          if (payload.error === "rate_limited" || payload.error === "provider_rate_limited") throw new Error("Ella has received several questions just now. Please wait a moment and try again.");
+          throw new Error("Ella can’t answer right now. Please try again in a moment or browse Explore.");
+        }
+
+        const answer = typeof payload.answer === "string" ? payload.answer.trim() : "";
+        if (!answer) throw new Error("Ella didn’t receive an answer. Please try asking another way.");
+        pendingMessage.remove();
+        rememberEllaMessage("assistant", answer);
+        addEllaMessage(answer, false, relatedEllaTab(cleanQuestion));
+      } catch (error) {
+        pendingMessage.remove();
+        if (ellaConversation.at(-1)?.role === "user") ellaConversation.pop();
+        addEllaMessage(error.message || "Ella can’t answer right now. Please try again in a moment.");
+      } finally {
+        setEllaBusy(false);
+      }
+    }
+
+    ellaInput.addEventListener("focus", () => setEllaOpen(true));
+    ellaLauncher.addEventListener("click", () => {
+      const isOpening = ellaPanel.hidden;
+      setEllaOpen(isOpening);
+      if (isOpening) ellaInput.focus();
+    });
+    document.getElementById("ellaGreetingOpen").addEventListener("click", () => {
+      setEllaOpen(true);
+      ellaInput.focus();
+    });
+    document.getElementById("ellaGreetingClose").addEventListener("click", () => {
+      ellaGreetingDismissed = true;
+      ellaGreeting.hidden = true;
+      ellaLauncher.focus();
+    });
+    document.getElementById("ellaHelp").addEventListener("click", () => { setEllaOpen(true); ellaInput.focus(); });
+    document.getElementById("ellaClose").addEventListener("click", () => setEllaOpen(false, true));
+    document.getElementById("ellaForm").addEventListener("submit", event => { event.preventDefault(); askElla(ellaInput.value); });
+    document.querySelectorAll("[data-ella-question]").forEach(button => button.addEventListener("click", () => askElla(button.dataset.ellaQuestion)));
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !ellaPanel.hidden) setEllaOpen(false, true);
+    });
+
+    updatePageFromScroll();
+  </script>
+</body>
+</html>
