@@ -485,6 +485,29 @@
     .operations-menu .solutions-column strong { font-weight: 500; line-height: 1.6; }
     @media(min-width:1001px) { .brand { min-width: 175px; } .header-nav a, .solutions-toggle { padding-left: 8px; padding-right: 8px; font-size: 11px; } }
     @media(min-width:651px) and (max-width:1100px) { .header-inner { flex-wrap: wrap; padding-top: 12px; gap: 10px; } .header-nav { flex-basis: 100%; justify-content: center; flex-wrap: wrap; padding-bottom: 10px; } }
+
+    .detail-hero { padding: 80px 48px; background: #e7efda; }
+    .detail-wrap { width: min(1200px,100%); margin: auto; }
+    .detail-hero h1 { max-width: 900px; margin: 20px 0; font-family: Georgia,serif; font-size: clamp(42px,5.8vw,76px); font-weight: 400; line-height: 1.04; letter-spacing: -.025em; }
+    .detail-hero .detail-lead { max-width: 760px; color: #4b624f; font-size: 18px; line-height: 1.8; }
+    .detail-breadcrumb { font-size: 12px; color: #526d50; }
+    .detail-layout { display: grid; grid-template-columns: 215px minmax(0,1fr); gap: 60px; padding: 60px 48px 90px; width: min(1296px,100%); margin: auto; }
+    .detail-nav { position: sticky; top: 100px; align-self: start; display: grid; gap: 8px; }
+    .detail-nav a { padding: 8px 0; color: #526d50; text-decoration: none; font-size: 13px; line-height: 1.5; }
+    .detail-nav a:hover { text-decoration: underline; }
+    .detail-section { padding: 0 0 45px; margin-bottom: 45px; border-bottom: 1px solid var(--line); scroll-margin-top: 155px; }
+    .detail-section h2 { font-size: clamp(28px,3vw,40px); line-height: 1.15; font-weight: 550; letter-spacing: -.03em; }
+    .detail-section>p { font-size: 16px; line-height: 1.8; color: var(--muted); }
+    .detail-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin: 25px 0; }
+    .detail-cards article { background: white; padding: 24px; border: 1px solid #e1e7dc; }
+    .detail-cards h3 { font-size: 19px; line-height: 1.4; margin-bottom: 12px; }
+    .detail-cards p { font-size: 14px; line-height: 1.8; color: var(--muted); margin-bottom: 0; }
+    .detail-example { padding: 22px 25px; background: #eaf0df; border-left: 3px solid #819e52; }
+    .detail-example strong { display: block; font-size: 11px; letter-spacing: .1em; margin-bottom: 10px; }
+    .detail-example p { margin: 0; font-size: 14px; line-height: 1.8; }
+    .detail-footer { padding: 38px 24px; text-align: center; background: var(--forest); color: white; }
+    .detail-footer a { display: inline-block; margin: 10px 18px; font-size: 14px; text-underline-offset: 4px; }
+    @media(max-width:750px) { .detail-hero { padding: 50px 24px; } .detail-layout { grid-template-columns: 1fr; padding: 30px 24px 60px; gap: 35px; } .detail-nav { position: static; display: flex; flex-wrap: wrap; gap: 7px 18px; } .detail-nav a { font-size: 12px; } .detail-cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body data-page="home">
@@ -497,8 +520,8 @@
       <nav class="header-nav" aria-label="TK WMS sections">
         <a id="nav-home" href="#view-home" data-page-link="home" aria-current="location">Home</a>
         <button class="solutions-toggle" id="solutionsToggle" type="button" aria-expanded="false" aria-controls="solutionsMenu">Solutions <span aria-hidden="true">⌄</span></button>
-        <button class="solutions-toggle" id="operationsToggle" type="button" aria-expanded="false" aria-controls="operationsMenu">Operations <span aria-hidden="true">⌄</span></button>
-        <button class="solutions-toggle" id="platformToggle" type="button" aria-expanded="false" aria-controls="platformMenu">Platform &amp; Tools <span aria-hidden="true">⌄</span></button>
+        <a href="/operations.html">Operations</a>
+        <a href="/platform-tools.html">Platform &amp; Tools</a>
         <a id="nav-offers" href="#view-offers" data-page-link="offers">What We Offer</a>
         <a id="nav-menus" href="#view-menus" data-page-link="menus">Explore</a>
         <a id="nav-goal" href="#view-goal" data-page-link="goal">Our Goal</a>
@@ -509,39 +532,27 @@
       <div class="solutions-top"><p>Discover TK WMS</p><button id="solutionsClose" type="button" aria-label="Close solutions menu">×</button></div>
       <div class="solutions-grid">
         <div class="solutions-column"><h2>WAREHOUSE EXECUTION</h2>
-          <a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Inbound operations</strong><span>Appointments, receiving &amp; putaway</span></a>
-          <a href="#panel-inventory" data-feature-tab="tab-inventory"><strong>Inventory control</strong><span>Stock, LPNs, holds &amp; traceability</span></a>
-          <a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Outbound fulfillment</strong><span>Waves, picking, packing &amp; shipping</span></a>
-          <a href="#panel-replenishment" data-feature-tab="tab-replenishment"><strong>Replenishment &amp; tasks</strong><span>Requests, assignments &amp; priorities</span></a>
+          <a href="/operations.html#inbound"><strong>Inbound operations</strong><span>Appointments, receiving &amp; putaway</span></a>
+          <a href="/operations.html#inventory"><strong>Inventory control</strong><span>Stock, LPNs, holds &amp; traceability</span></a>
+          <a href="/operations.html#outbound"><strong>Outbound fulfillment</strong><span>Waves, picking, packing &amp; shipping</span></a>
+          <a href="/operations.html#replenishment"><strong>Replenishment &amp; tasks</strong><span>Requests, assignments &amp; priorities</span></a>
         </div>
         <div class="solutions-column"><h2>SPECIALIZED OPERATIONS</h2>
-          <a href="#panel-setup" data-feature-tab="tab-setup"><strong>Warehouse setup</strong><span>Items, locations &amp; master data</span></a>
-          <a href="#panel-counts" data-feature-tab="tab-counts"><strong>Cycle counting</strong><span>Count plans, tasks &amp; variance review</span></a>
-          <a href="#panel-kitting" data-feature-tab="tab-kitting"><strong>Kitting &amp; assembly</strong><span>Bills of material &amp; work orders</span></a>
-          <a href="#panel-crossdock" data-feature-tab="tab-crossdock"><strong>Cross-docking</strong><span>Coordinate inbound with outbound</span></a>
+          <a href="/operations.html#setup"><strong>Warehouse setup</strong><span>Items, locations &amp; master data</span></a>
+          <a href="/operations.html#counts"><strong>Cycle counting</strong><span>Count plans, tasks &amp; variance review</span></a>
+          <a href="/operations.html#kitting"><strong>Kitting &amp; assembly</strong><span>Bills of material &amp; work orders</span></a>
+          <a href="/operations.html#crossdock"><strong>Cross-docking</strong><span>Coordinate inbound with outbound</span></a>
         </div>
         <div class="solutions-column"><h2>PLATFORM &amp; CONFIGURATION</h2>
-          <a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Strategy Engine</strong><span>Actions, location rules &amp; reservations</span></a>
-          <a href="#panel-rules" data-feature-tab="tab-rules"><strong>Rules &amp; profiles</strong><span>Business rules &amp; workflow policies</span></a>
-          <a href="#panel-workflow" data-feature-tab="tab-workflow"><strong>Workflow &amp; RF/voice</strong><span>Screen, workflow &amp; handheld menus</span></a>
-          <a href="#panel-visibility" data-feature-tab="tab-visibility"><strong>Dashboards &amp; queries</strong><span>Performance views &amp; record inquiries</span></a>
-          <a href="#panel-tools" data-feature-tab="tab-tools"><strong>Tools, admin &amp; training</strong><span>Designers, access &amp; learning</span></a>
+          <a href="/platform-tools.html#strategy"><strong>Strategy Engine</strong><span>Actions, location rules &amp; reservations</span></a>
+          <a href="/platform-tools.html#rules"><strong>Rules &amp; profiles</strong><span>Business rules &amp; workflow policies</span></a>
+          <a href="/platform-tools.html#workflow"><strong>Workflow &amp; RF/voice</strong><span>Screen, workflow &amp; handheld menus</span></a>
+          <a href="/platform-tools.html#visibility"><strong>Dashboards &amp; queries</strong><span>Performance views &amp; record inquiries</span></a>
+          <a href="/platform-tools.html#tools"><strong>Tools, admin &amp; training</strong><span>Designers, access &amp; learning</span></a>
         </div>
-        <aside class="solutions-popular"><h2>POPULAR LINKS</h2><a href="#view-offers" data-page-target="offers">View all capabilities ↗</a><a href="#journey">Follow the warehouse workflow ↗</a><a href="#view-contact" data-page-target="contact">Contact TK WMS ↗</a><button class="solutions-ella" id="solutionsElla" type="button">Ask Ella a WMS question ↗</button><div class="solutions-feature"><span>CONFIGURE. EXECUTE. UNDERSTAND.</span><h3>A closer look at TK WMS.</h3><p>Explore the tools that connect warehouse work with the rules behind it.</p><a href="#panel-strategy" data-feature-tab="tab-strategy">Explore the Strategy Engine →</a></div></aside>
+        <aside class="solutions-popular"><h2>POPULAR LINKS</h2><a href="#view-offers" data-page-target="offers">View all capabilities ↗</a><a href="#journey">Follow the warehouse workflow ↗</a><a href="#view-contact" data-page-target="contact">Contact TK WMS ↗</a><button class="solutions-ella" id="solutionsElla" type="button">Ask Ella a WMS question ↗</button><div class="solutions-feature"><span>CONFIGURE. EXECUTE. UNDERSTAND.</span><h3>A closer look at TK WMS.</h3><p>Explore the tools that connect warehouse work with the rules behind it.</p><a href="/platform-tools.html#strategy">Explore the Strategy Engine →</a></div></aside>
       </div>
     </section>
-    <section class="solutions-menu" id="platformMenu" aria-label="TK WMS platform and tools" hidden>
-      <div class="solutions-top"><p>Build around your warehouse</p><button data-close-navigation type="button" aria-label="Close platform menu">×</button></div>
-      <div class="solutions-grid">
-<div class="solutions-column"><h2>PLATFORM &amp; CONFIGURATION</h2><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Strategy Engine</strong><span>Strategy definitions &amp; actions</span></a><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Location &amp; reservation rules</strong><span>Suggested locations &amp; attribute profiles</span></a><a href="#panel-rules" data-feature-tab="tab-rules"><strong>Business rules &amp; policies</strong><span>Rule actions &amp; workflow policies</span></a><a href="#panel-workflow" data-feature-tab="tab-workflow"><strong>Workflow &amp; RF/voice</strong><span>Screens, workflows &amp; handheld menus</span></a></div>
-<div class="solutions-column"><h2>TOOLS</h2><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Report &amp; Label Designers</strong><span>Maintain operational output layouts</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Interface Designer &amp; Integration Sync</strong><span>Interface definitions &amp; synchronization</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Import/export &amp; API playground</strong><span>Tools for supported data workflows</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Users, roles &amp; access</strong><span>Warehouse, business-unit &amp; menu setup</span></a></div>
-<div class="solutions-column"><h2>LEARN</h2><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Understand warehouse decision logic</strong><span>Explore strategies and reservation controls</span></a><a href="#panel-workflow" data-feature-tab="tab-workflow"><strong>Discover workflow design</strong><span>How screen and workflow tools fit together</span></a><a href="#panel-visibility" data-feature-tab="tab-visibility"><strong>Explore dashboards &amp; queries</strong><span>Performance views and operational history</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Training Phases 1–6</strong><span>Product learning organized by stage</span></a></div>
-<aside class="solutions-popular platform-feature"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Warehouse storage racks and operating floor" loading="lazy"><p class="eyebrow">INSIDE TK WMS</p><h3>The controls behind every warehouse move.</h3><p>From strategy actions to workflow policies, TK WMS gives authorized teams dedicated tools to configure how warehouse work is directed and presented.</p><a href="#panel-strategy" data-feature-tab="tab-strategy">Explore platform capabilities ↗</a><button class="solutions-ella" data-open-ella type="button">Have a question? Ask Ella ↗</button></aside>
-      </div>
-    </section>
-    <section class="solutions-menu operations-menu" id="operationsMenu" aria-label="TK WMS operations" hidden><div class="solutions-top"><p>Explore your warehouse workflows</p><button data-close-navigation type="button" aria-label="Close operations menu">×</button></div><div class="solutions-grid">
-<div class="solutions-column"><h2>RECEIVE</h2><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Appointments &amp; yard activity</strong></a><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Receiving &amp; inspections</strong></a><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Returns &amp; putaway</strong></a><a href="#panel-crossdock" data-feature-tab="tab-crossdock"><strong>Cross-docking</strong></a></div><div class="solutions-column"><h2>STORE</h2><a href="#panel-inventory" data-feature-tab="tab-inventory"><strong>Inventory Workbench</strong></a><a href="#panel-inventory" data-feature-tab="tab-inventory"><strong>LPN moves &amp; holds</strong></a><a href="#panel-replenishment" data-feature-tab="tab-replenishment"><strong>Replenishment &amp; tasks</strong></a><a href="#panel-counts" data-feature-tab="tab-counts"><strong>Cycle counts &amp; variance review</strong></a><a href="#panel-kitting" data-feature-tab="tab-kitting"><strong>Kitting &amp; assembly</strong></a></div><div class="solutions-column"><h2>SHIP</h2><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Orders &amp; wave planning</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Allocation &amp; picking</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Packing &amp; cartonization</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Shipment grouping &amp; audits</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Carrier shipping</strong></a></div><aside class="solutions-popular"><h2>POPULAR LINKS</h2><a href="#journey">Follow the warehouse workflow ↗</a><a href="#panel-visibility" data-feature-tab="tab-visibility">Dashboards &amp; operational queries ↗</a><a href="#panel-strategy" data-feature-tab="tab-strategy">Strategy &amp; location rules ↗</a><a href="#view-contact" data-page-target="contact">Discuss your warehouse needs ↗</a><button class="solutions-ella" data-open-ella type="button">Ask Ella about TK WMS ↗</button></aside>
-    </div></section>
   </header>
   <div class="solutions-backdrop" id="solutionsBackdrop" hidden></div>
 
@@ -587,12 +598,12 @@
         </div>
       </section>
       <section class="journey-section" id="journey" aria-labelledby="journey-title"><div class="section-shell"><p class="eyebrow">FROM ARRIVAL TO DISPATCH</p><h2 id="journey-title">Every stage has a place.<br>Every team has a next step.</h2><p class="journey-intro">Explore how TK WMS connects the work across your warehouse.</p><div class="journey-grid">
-        <a href="#panel-inbound" data-feature-tab="tab-inbound"><span>01</span><h3>Receive &amp; put away</h3><p>Appointments, yard activity, receipts, inspections, returns, and putaway.</p><b>Explore inbound ↗</b></a>
-        <a href="#panel-inventory" data-feature-tab="tab-inventory"><span>02</span><h3>Control &amp; replenish</h3><p>Inventory workbench, LPN moves and holds, replenishment requests, and cycle counts.</p><b>Explore inventory ↗</b></a>
-        <a href="#panel-outbound" data-feature-tab="tab-outbound"><span>03</span><h3>Pick, pack &amp; ship</h3><p>Wave planning, allocation, picking, packing verification, cartonization, and shipping.</p><b>Explore outbound ↗</b></a>
-        <a href="#panel-visibility" data-feature-tab="tab-visibility"><span>04</span><h3>Review &amp; improve</h3><p>Functional dashboards and queries for receipts, shipments, inventory, and activity.</p><b>Explore visibility ↗</b></a>
+        <a href="/operations.html#inbound"><span>01</span><h3>Receive &amp; put away</h3><p>Appointments, yard activity, receipts, inspections, returns, and putaway.</p><b>Explore inbound ↗</b></a>
+        <a href="/operations.html#inventory"><span>02</span><h3>Control &amp; replenish</h3><p>Inventory workbench, LPN moves and holds, replenishment requests, and cycle counts.</p><b>Explore inventory ↗</b></a>
+        <a href="/operations.html#outbound"><span>03</span><h3>Pick, pack &amp; ship</h3><p>Wave planning, allocation, picking, packing verification, cartonization, and shipping.</p><b>Explore outbound ↗</b></a>
+        <a href="/platform-tools.html#visibility"><span>04</span><h3>Review &amp; improve</h3><p>Functional dashboards and queries for receipts, shipments, inventory, and activity.</p><b>Explore visibility ↗</b></a>
       </div></div></section>
-      <section class="feature-spotlight" aria-labelledby="spotlight-title"><div class="section-shell spotlight-grid"><div><p class="eyebrow">THE TOOLS BEHIND YOUR WORKFLOWS</p><h2 id="spotlight-title">Your operation has its own rules.<br>Give them a place to work.</h2><p>TK WMS exposes configuration tools alongside execution menus, from the Strategy Engine to the screens and RF menus warehouse teams use.</p><a class="button-primary" href="#panel-strategy" data-feature-tab="tab-strategy">Explore strategy &amp; rules ↗</a></div><div class="spotlight-list"><article><span>DECISION LOGIC</span><h3>Strategy Engine &amp; location rules</h3><p>Maintain strategy definitions and actions, configure suggested-location rules, and define reservation-attribute profiles.</p></article><article><span>WORKER EXPERIENCE</span><h3>Screen, workflow &amp; RF design</h3><p>Configure supported screens, workflow structure, policies, handheld RF menus, and voice-related options.</p></article><article><span>IMPLEMENTATION</span><h3>Designers, data tools &amp; access</h3><p>Work with report, label, and interface designers; Integration Sync; import/export; API tools; and role-based menu access.</p></article></div></div></section>
+      <section class="feature-spotlight" aria-labelledby="spotlight-title"><div class="section-shell spotlight-grid"><div><p class="eyebrow">THE TOOLS BEHIND YOUR WORKFLOWS</p><h2 id="spotlight-title">Your operation has its own rules.<br>Give them a place to work.</h2><p>TK WMS exposes configuration tools alongside execution menus, from the Strategy Engine to the screens and RF menus warehouse teams use.</p><a class="button-primary" href="/platform-tools.html#strategy">Explore strategy &amp; rules ↗</a></div><div class="spotlight-list"><article><span>DECISION LOGIC</span><h3>Strategy Engine &amp; location rules</h3><p>Maintain strategy definitions and actions, configure suggested-location rules, and define reservation-attribute profiles.</p></article><article><span>WORKER EXPERIENCE</span><h3>Screen, workflow &amp; RF design</h3><p>Configure supported screens, workflow structure, policies, handheld RF menus, and voice-related options.</p></article><article><span>IMPLEMENTATION</span><h3>Designers, data tools &amp; access</h3><p>Work with report, label, and interface designers; Integration Sync; import/export; API tools; and role-based menu access.</p></article></div></div></section>
     </section>
 
     <section class="page-view menu-view" id="view-menus" data-page-view="menus">
@@ -1076,9 +1087,7 @@
     }));
 
     const navigationPanels = [
-      { toggle: document.getElementById("solutionsToggle"), panel: document.getElementById("solutionsMenu") },
-      { toggle: document.getElementById("platformToggle"), panel: document.getElementById("platformMenu") },
-      { toggle: document.getElementById("operationsToggle"), panel: document.getElementById("operationsMenu") }
+      { toggle: document.getElementById("solutionsToggle"), panel: document.getElementById("solutionsMenu") }
     ];
     function closeNavigation(returnFocus = false) {
       const active = navigationPanels.find(item => !item.panel.hidden);
@@ -1095,7 +1104,6 @@
       panel.addEventListener("click", event => { if (event.target.closest("a")) closeNavigation(); });
     });
     document.getElementById("solutionsClose").addEventListener("click", () => closeNavigation(true));
-    document.querySelectorAll("[data-close-navigation]").forEach(button => button.addEventListener("click", () => closeNavigation(true)));
     document.getElementById("solutionsBackdrop").addEventListener("click", () => closeNavigation());
     document.addEventListener("keydown", event => { if (event.key === "Escape" && navigationPanels.some(item => !item.panel.hidden)) { closeNavigation(true); event.stopImmediatePropagation(); } });
     document.addEventListener("focusin", event => { if (!event.target.closest(".site-header")) closeNavigation(); });

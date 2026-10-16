@@ -34,3 +34,10 @@ Deploy as a Vite site with `npm run build` and output directory `dist`.
 - Local TK WMS logo and an Unsplash stock portrait used to represent Ella, the product guide (not an actual TK WMS employee)
 
 The site describes menus observed in TK WMS; exact availability can depend on a user's role and configuration. Operational access should be provided by a separately authenticated application, not this public marketing site. The contact form is a preview only and does not send or store submissions until a verified TK WMS recipient and delivery service are configured.
+
+## Dedicated product pages
+
+- `/operations.html`: operational workspaces, controls, and workflow examples.
+- `/platform-tools.html`: strategy, rules, workflow configuration, dashboards, implementation tools, and training.
+
+Vite builds all three HTML entry points. Feature links open the relevant product page. Content reflects the product descriptions documented in this repository.
