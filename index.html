@@ -433,6 +433,35 @@
     .solutions-menu :focus-visible, .solutions-toggle:focus-visible { outline: 2px solid #63833d; outline-offset: 3px; }
     @media(max-width: 1000px) { .solutions-grid { grid-template-columns: repeat(2,1fr); } .solutions-popular { padding-left: 0; border-left: 0; } }
     @media(max-width: 650px) { .solutions-menu { padding: 12px 22px 24px; max-height: calc(100svh - 155px); } .solutions-grid { gap: 18px; } .solutions-grid h2 { font-size: 10px; } .solutions-column strong { font-size: 13px; } .solutions-column span { font-size: 11px; } .solutions-toggle { font-size: 11px; padding: 0 11px; min-height: 37px; } .solutions-feature { padding: 15px; } }
+
+    /* One-shot light sweeps keep the page calm after its entrance. */
+    .home-page .hero::after {
+      display: block; z-index: 2; inset: -45% auto -45% -70%;
+      width: 56%; min-width: 240px; border-radius: 50%;
+      background: linear-gradient(110deg, transparent 22%, rgba(212,243,92,.05) 38%, rgba(235,255,196,.55) 49%, rgba(181,227,115,.16) 56%, transparent 74%);
+      filter: blur(8px); pointer-events: none;
+      animation: tk-hero-sweep 1.9s cubic-bezier(.2,.65,.25,1) .18s both;
+    }
+    .solutions-menu { isolation: isolate; }
+    .solutions-menu::after {
+      content: ''; position: absolute; z-index: -1; top: 0; left: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, #a9ce70, #e3f9a7, transparent);
+      transform-origin: left; pointer-events: none;
+      animation: tk-menu-sweep .65s cubic-bezier(.2,.65,.25,1) both;
+    }
+    .solutions-grid { animation: tk-menu-enter .3s ease-out both; }
+    @keyframes tk-hero-sweep {
+      0% { opacity: 0; transform: translateX(0) rotate(16deg) skewX(-12deg); }
+      18% { opacity: 1; }
+      80% { opacity: .8; }
+      100% { opacity: 0; transform: translateX(340%) rotate(16deg) skewX(-12deg); }
+    }
+    @keyframes tk-menu-sweep { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+    @keyframes tk-menu-enter { from { opacity: 0; transform: translateY(-7px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .home-page .hero::after, .solutions-menu::after { display: none; animation: none; }
+      .solutions-grid { animation: none; }
+    }
   </style>
 </head>
 <body data-page="home">
