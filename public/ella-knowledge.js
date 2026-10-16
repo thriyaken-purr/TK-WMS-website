@@ -175,28 +175,20 @@ export default [
     "title": "Built with AI",
     "sections": [
       {
-        "heading": "Describe the work first",
-        "text": "TK WMS was built using AI as part of the development process. The starting point is the warehouse experience: the screens, workflows, and controls the product needs to represent. Giving those needs a clear description provides direction for the implementation work that follows."
+        "heading": "Turn an idea into a clear request",
+        "text": "TK WMS was built using AI. The starting point for an implementation request is the intended warehouse behavior: who is doing the work, what information matters, and what should change in the resulting experience."
       },
       {
-        "heading": "Use conversation to shape the product",
-        "text": "An AI-assisted approach makes plain-language requests part of software development. A feature idea, a layout correction, or a clearer explanation can become a concrete change to review. This public website has evolved in the same way: requests become changes, checks, and published updates."
+        "heading": "Review the result against the workflow",
+        "text": "An AI-assisted change needs a concrete point of comparison. The receiving, inventory, fulfillment, or configuration task provides that context. Feedback on terminology, navigation, and behavior can then guide the next iteration rather than repeating the initial request."
       },
       {
-        "heading": "Keep the warehouse model at the center",
-        "text": "The product still needs to make sense as a WMS. Receiving, inventory, fulfillment, task work, rules, and configuration provide the structure around the interface. AI contributes to building the product; those operational concepts define what the product is for."
+        "heading": "Keep the product guide aligned",
+        "text": "The public website is maintained in GitHub and published through Vercel. Reviewed changes to explanations, navigation, and Ella’s saved knowledge can be published at the same address. That lets the product story evolve as the team clarifies the WMS."
       },
       {
-        "heading": "Refine what people actually use",
-        "text": "The work continues after the first implementation. Corrections to navigation, terminology, page content, and feature explanations help keep the experience aligned with the intended warehouse workflows. The public website and its product guide can be refined alongside that understanding."
-      },
-      {
-        "heading": "Turn requests into implementation changes",
-        "text": "AI-assisted coding is part of the development approach behind TK WMS. A useful request describes the intended behavior, the warehouse context, and what needs to change. The resulting implementation can then be reviewed against that request, with corrections feeding into the next iteration."
-      },
-      {
-        "heading": "Publish the product story as it evolves",
-        "text": "The TK WMS public website uses GitHub to track its code and Vercel to publish updates. Changes to pages, navigation, and Ella’s saved product answers can be committed and published at the same address, keeping the public guide adaptable as the product story becomes more detailed."
+        "heading": "Keep development and execution distinct",
+        "text": "AI’s role in creating TK WMS does not establish how an individual warehouse decision is made. Strategy definitions, business rules, and workflow configuration describe the documented controls; the voice guide explains the separate interaction story."
       }
     ]
   },
@@ -277,20 +269,16 @@ export default [
     "title": "Voice & recording",
     "sections": [
       {
-        "heading": "Bring voice into the product conversation",
-        "text": "Voice recording is part of TK WMS. Voice is part of how the product’s interaction story is being developed, alongside the screens and menus used to present warehouse work."
+        "heading": "Start with the interaction",
+        "text": "Voice recording is part of TK WMS. Its place in the product is alongside the screens and menus that present warehouse work. Understanding the intended task provides the starting point for reviewing that interaction."
       },
       {
-        "heading": "Understand the surrounding workflow tools",
-        "text": "The documented TK WMS configuration areas include Screen Designer, Workflow Designer, Workflow Policies, RF Menus, and voice-related options. These are different parts of the worker-facing experience: screen presentation, process structure, handheld navigation, and voice configuration."
+        "heading": "Know what each tool contributes",
+        "text": "Screen Designer concerns presentation; Workflow Designer concerns process structure; RF Menus organize handheld navigation. Voice-related options add a further interaction area within the documented configuration."
       },
       {
-        "heading": "Keep recording and execution distinct",
-        "text": "Recording a voice input and completing warehouse work are separate activities. A recording on its own should not be understood as confirmation that inventory moved, an order shipped, or a task finished. The meaning of a voice interaction depends on the workflow in which it is used."
-      },
-      {
-        "heading": "Review voice in its warehouse context",
-        "text": "When exploring a voice-enabled experience, start with the task and the user’s role. Then review the available screen, RF, and voice options for that configured workflow. The workflow guide explains the surrounding design tools; the operations guides explain the warehouse work itself."
+        "heading": "Distinguish capture from confirmation",
+        "text": "A recording captures a voice input. A warehouse confirmation records a completed process step. They should be interpreted in the context of the implemented workflow; the public documentation does not specify automatic transcription or command execution."
       }
     ]
   },

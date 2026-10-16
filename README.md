@@ -34,7 +34,7 @@ Run `node --test tests/*.test.mjs` to check documented replies, broad terminolog
 ## Included
 
 - One continuous product page with sticky anchor tabs for Home, What We Offer, Explore, Our Goal, and Contact
-- 13 keyboard-accessible tabs with menu-level explanations covering setup, inbound, outbound, inventory, replenishment, counts, tasks, kitting, cross-docking, strategy, rules, workflow design, visibility, tools, administration, and training
+- 13 keyboard-accessible overview tabs with links to detailed guides covering setup, inbound, outbound, inventory, replenishment, counts, tasks, kitting, cross-docking, strategy, rules, workflow design, visibility, tools, administration, and training
 - Dedicated emphasis on TK WMS strategy, suggested-location rules, reservation attributes, workflow/RF/voice design, and implementation tools
 - Operational visibility and dashboard/query categories based on the menus observed in TK WMS
 - Responsive navigation, cinematic warehouse hero, restrained swoosh motion, and reduced-motion support
@@ -59,3 +59,7 @@ Shared styles and dropdown behavior live in `public/site.css` and `public/naviga
 ## Platform & AI story
 
 `/platform/ai.html` introduces the AI-assisted development approach confirmed by the product creator. Distinct guides cover development, voice recording, and Ella. Voice recording is confirmed at a high level; speech transcription, command execution, storage mechanisms, and specific AI vendors have not been verified in this repository and are not claimed by these pages. The original configuration overview remains available at `/platform-tools.html` through the Platform & AI dropdown.
+
+## Content structure
+
+The homepage introduces the product, preserves the six capability summaries, and helps visitors choose a question to investigate. Explore is a concise menu index; the detailed product explanations belong to dedicated pages. Solution stories use illustrative operational situations, Operations explains the workspaces, and Platform explains the configuration concerns. Each detail page has a contextual reading path instead of a repeated set of recommendations. General WMS definitions remain in the separate searchable reference.

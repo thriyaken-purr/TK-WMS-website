@@ -670,3 +670,10 @@
 }
 @media(max-width:380px) { .home-page .hero-inner { padding-right:20px; padding-left:20px; } .home-page .hero h1 { font-size:38px; } .home-page .hero-copy { font-size:13px; } }
 @media(prefers-reduced-motion:reduce) { .hero-photo { animation:none; } }
+
+.reading-path { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media(max-width:750px) { .reading-path { grid-template-columns:1fr; } }
+
+.module-panel { min-height:460px; }
+.module-guide-link { display:inline-block; margin-top:25px; color:#456a30; font-size:13px; font-weight:650; text-underline-offset:4px; }
+@media(max-width:650px) { .module-panel { min-height:0; } }
