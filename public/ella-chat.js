@@ -39,17 +39,8 @@ function send(question) {
     reply.append(link);
   }
   if (response.kind !== 'fallback') previousUrl = response.contextUrl || response.url || previousUrl;
-  const suggestions = document.querySelector('.ella-suggestions');
-  if (response.suggestions && suggestions) {
-    suggestions.replaceChildren();
-    for (const text of response.suggestions) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = text;
-      button.addEventListener('click', () => send(text));
-      suggestions.append(button);
-    }
-  }
+  const starters = document.querySelector('.ella-starters');
+  if (starters) starters.hidden = true;
   exchange.append(user, reply);
   thread.append(exchange);
   while (thread.children.length > 11) thread.firstElementChild.remove();
@@ -59,3 +50,11 @@ function send(question) {
 }
 form.addEventListener('submit', event => {event.preventDefault();send(input.value);});
 document.querySelectorAll('[data-ella-suggestion]').forEach(button => button.addEventListener('click', () => send(button.dataset.ellaSuggestion)));
+
+// Keep the conversation inside the visible area when a phone keyboard opens.
+function updateChatViewport() {
+  document.documentElement.style.setProperty('--ella-viewport-height', `${window.visualViewport?.height || window.innerHeight}px`);
+}
+window.visualViewport?.addEventListener('resize', updateChatViewport);
+window.addEventListener('resize', updateChatViewport);
+updateChatViewport();

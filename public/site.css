@@ -590,3 +590,83 @@
 .wms-reading h2 { font-size:24px; }
 .wms-reading p { font-size:14px; line-height:1.85; }
 .ella-bubble { white-space:pre-line; }
+
+/* A quiet chat frame: the message history owns the available space. */
+.visually-hidden { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+.ella-panel { height:min(460px,72svh); max-height:min(460px,72svh); border-radius:18px; }
+.ella-head { flex-shrink:0; padding:12px 14px; align-items:center; }
+.ella-identity { gap:10px; }
+.ella-identity .ella-avatar { width:34px; height:34px; flex-basis:34px; }
+.ella-head h2 { font-size:23px; line-height:1.2; }
+.ella-close { min-width:36px; min-height:36px; }
+.ella-thread { padding:15px 12px; gap:12px; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#b9c9b1 transparent; }
+.ella-bubble { max-width:95%; padding:10px 12px; font-size:13px; line-height:1.65; border-radius:13px 13px 13px 3px; }
+.ella-starters { display:flex; gap:7px; flex-shrink:0; flex-wrap:wrap; }
+.ella-starters[hidden] { display:none; }
+.ella-starters button { border:1px solid #d3dfca; border-radius:16px; padding:7px 10px; color:#456039; background:white; font:inherit; font-size:11px; cursor:pointer; }
+.ella-starters button:hover { background:#e6eedf; }
+.ella-composer { padding:10px 12px; background:white; }
+.ella-compose-row { align-items:center; gap:8px; }
+.ella-compose-row input { min-height:42px; padding:10px 12px; border-radius:13px; font-size:14px; }
+.ella-compose-row button { width:42px; height:42px; border-radius:13px; flex-shrink:0; }
+.ella-note { flex-shrink:0; padding:0 14px 10px; border:0; color:#75816e; font-size:10px; }
+.ella-panel ::selection { background:#dce9cc; color:#17342b; }
+.ella-starters button:focus-visible { outline:2px solid #63833d; outline-offset:2px; }
+
+/* Let the warehouse photograph lead the opening view. */
+.home-page .hero { background-image:none; }
+.hero-photo { position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; object-position:center; animation:warehouse-arrive 7s ease-out both; }
+@keyframes warehouse-arrive { from { transform:scale(1.055); } to { transform:scale(1); } }
+.mobile-nav-toggle { display:none; }
+@media(max-width:750px) {
+  .site-header { min-height:68px; }
+  .site-header .header-inner { width:100%; min-height:68px; padding:0 20px; gap:12px; flex-wrap:nowrap; }
+  .brand { min-width:0; gap:9px; }
+  .brand-logo { width:34px; height:34px; flex-basis:34px; }
+  .brand-title { font-size:19px; }
+  .brand-caption { font-size:7px; letter-spacing:.1em; }
+  .mobile-nav-toggle { display:flex; align-items:center; justify-content:center; gap:9px; margin-left:auto; padding:10px 12px; min-height:44px; border:1px solid #d8e0d1; border-radius:24px; background:white; color:var(--forest); font:inherit; font-size:12px; cursor:pointer; }
+  .mobile-nav-icon, .mobile-nav-icon::before { display:block; width:16px; height:1px; background:currentColor; position:relative; }
+  .mobile-nav-icon::before { content:''; position:absolute; top:5px; }
+  .mobile-nav-icon { transform:translateY(-2px); }
+  .site-header .header-nav { position:absolute; left:0; top:100%; width:100%; margin:0; padding:16px 20px 24px; display:flex; flex-direction:column; align-items:stretch; gap:4px; background:white; border-top:1px solid #e1e6dc; box-shadow:0 18px 25px #10272018; max-height:calc(100dvh - 100px); overflow-y:auto; }
+  .navigation-ready .mobile-nav-toggle[aria-expanded="false"]+.header-nav, .site-header.has-submenu .header-nav { display:none; }
+  .site-header .header-nav>a, .site-header .nav-group>a { min-height:46px; padding:10px 8px; font-size:16px; border:0; }
+  .site-header .nav-group { justify-content:space-between; }
+  .site-header .nav-group>a { flex:1; }
+  .site-header .nav-group .solutions-toggle { width:44px; height:44px; padding:10px; justify-content:center; font-size:18px; }
+  .site-header .header-nav .nav-contact { margin:8px 0 0; justify-content:center; }
+  .site-header .solutions-menu { max-height:calc(100dvh - 90px); padding:12px 20px 24px; }
+  .solutions-grid { grid-template-columns:1fr; gap:20px; }
+  .solutions-grid h2 { min-height:0; font-size:11px; margin-bottom:9px; }
+  .solutions-column a { padding:10px 0; margin-bottom:0; }
+  .solutions-column strong { font-size:15px; }
+  .solutions-column span { font-size:12px; }
+  .solutions-popular { border:0; padding:0; }
+  .solutions-feature, .ai-mini-art { display:none; }
+  .page-view { scroll-margin-top:84px; }
+  .home-page .hero { min-height:calc(100svh - 68px); align-items:flex-end; }
+  .hero-photo { object-position:62% center; }
+  .home-page .hero::before { background:linear-gradient(0deg,rgba(7,26,19,.96) 0%,rgba(7,26,19,.77) 32%,rgba(7,26,19,.18) 73%,rgba(7,26,19,.1) 100%); }
+  .home-page .hero-inner { width:100%; padding:clamp(135px,26svh,230px) 24px 74px; }
+  .home-page .hero h1 { max-width:540px; margin:18px 0; font-size:clamp(40px,9.3vw,62px); line-height:1.03; }
+  .home-page .hero-copy { max-width:440px; font-size:14px; line-height:1.75; }
+  .home-page .hero-kicker { max-width:300px; font-size:9px; line-height:1.7; gap:8px; }
+  .home-page .hero-kicker::before { width:20px; flex-shrink:0; }
+  .home-page .hero-actions { margin-top:20px; }
+  .home-page .hero .button-text { padding:10px 0; font-size:13px; }
+  .home-page .hero-index { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px; padding-top:16px; max-width:320px; }
+  .home-page .hero-index span { margin:0; font-size:8px; }
+  .ella-greeting { display:none; }
+  .ella-widget { right:12px; bottom:max(12px,env(safe-area-inset-bottom)); width:calc(100vw - 24px); }
+  .ella-panel { bottom:66px; width:100%; height:min(540px,calc(var(--ella-viewport-height,100dvh) - 100px)); max-height:calc(var(--ella-viewport-height,100dvh) - 100px); border-radius:20px; }
+  .ella-head { padding:11px 14px; }
+  .ella-head h2 { font-size:24px; }
+  .ella-thread { padding:14px 12px; }
+  .ella-bubble { font-size:14px; }
+  .ella-compose-row input { font-size:16px; min-height:44px; }
+  .ella-compose-row button { width:44px; height:44px; }
+  .ella-note { font-size:10px; padding-bottom:10px; }
+}
+@media(max-width:380px) { .home-page .hero-inner { padding-right:20px; padding-left:20px; } .home-page .hero h1 { font-size:38px; } .home-page .hero-copy { font-size:13px; } }
+@media(prefers-reduced-motion:reduce) { .hero-photo { animation:none; } }
