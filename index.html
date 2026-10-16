@@ -481,6 +481,10 @@
     .platform-feature h3 { font-size: 24px; line-height: 1.2; margin-bottom: 14px; }
     .platform-feature>p:not(.eyebrow) { font-size: 14px; line-height: 1.7; color: var(--muted); }
     @media(min-width:1001px) { .header-inner { gap: 14px; padding-left: 28px; padding-right: 28px; } .header-nav { gap: 0; } .header-nav a, .solutions-toggle { padding-left: 10px; padding-right: 10px; } }
+    .operations-menu .solutions-column a { padding: 11px 0; margin-bottom: 12px; }
+    .operations-menu .solutions-column strong { font-weight: 500; line-height: 1.6; }
+    @media(min-width:1001px) { .brand { min-width: 175px; } .header-nav a, .solutions-toggle { padding-left: 8px; padding-right: 8px; font-size: 11px; } }
+    @media(min-width:651px) and (max-width:1100px) { .header-inner { flex-wrap: wrap; padding-top: 12px; gap: 10px; } .header-nav { flex-basis: 100%; justify-content: center; flex-wrap: wrap; padding-bottom: 10px; } }
   </style>
 </head>
 <body data-page="home">
@@ -493,6 +497,7 @@
       <nav class="header-nav" aria-label="TK WMS sections">
         <a id="nav-home" href="#view-home" data-page-link="home" aria-current="location">Home</a>
         <button class="solutions-toggle" id="solutionsToggle" type="button" aria-expanded="false" aria-controls="solutionsMenu">Solutions <span aria-hidden="true">⌄</span></button>
+        <button class="solutions-toggle" id="operationsToggle" type="button" aria-expanded="false" aria-controls="operationsMenu">Operations <span aria-hidden="true">⌄</span></button>
         <button class="solutions-toggle" id="platformToggle" type="button" aria-expanded="false" aria-controls="platformMenu">Platform &amp; Tools <span aria-hidden="true">⌄</span></button>
         <a id="nav-offers" href="#view-offers" data-page-link="offers">What We Offer</a>
         <a id="nav-menus" href="#view-menus" data-page-link="menus">Explore</a>
@@ -534,6 +539,9 @@
 <aside class="solutions-popular platform-feature"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Warehouse storage racks and operating floor" loading="lazy"><p class="eyebrow">INSIDE TK WMS</p><h3>The controls behind every warehouse move.</h3><p>From strategy actions to workflow policies, TK WMS gives authorized teams dedicated tools to configure how warehouse work is directed and presented.</p><a href="#panel-strategy" data-feature-tab="tab-strategy">Explore platform capabilities ↗</a><button class="solutions-ella" data-open-ella type="button">Have a question? Ask Ella ↗</button></aside>
       </div>
     </section>
+    <section class="solutions-menu operations-menu" id="operationsMenu" aria-label="TK WMS operations" hidden><div class="solutions-top"><p>Explore your warehouse workflows</p><button data-close-navigation type="button" aria-label="Close operations menu">×</button></div><div class="solutions-grid">
+<div class="solutions-column"><h2>RECEIVE</h2><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Appointments &amp; yard activity</strong></a><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Receiving &amp; inspections</strong></a><a href="#panel-inbound" data-feature-tab="tab-inbound"><strong>Returns &amp; putaway</strong></a><a href="#panel-crossdock" data-feature-tab="tab-crossdock"><strong>Cross-docking</strong></a></div><div class="solutions-column"><h2>STORE</h2><a href="#panel-inventory" data-feature-tab="tab-inventory"><strong>Inventory Workbench</strong></a><a href="#panel-inventory" data-feature-tab="tab-inventory"><strong>LPN moves &amp; holds</strong></a><a href="#panel-replenishment" data-feature-tab="tab-replenishment"><strong>Replenishment &amp; tasks</strong></a><a href="#panel-counts" data-feature-tab="tab-counts"><strong>Cycle counts &amp; variance review</strong></a><a href="#panel-kitting" data-feature-tab="tab-kitting"><strong>Kitting &amp; assembly</strong></a></div><div class="solutions-column"><h2>SHIP</h2><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Orders &amp; wave planning</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Allocation &amp; picking</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Packing &amp; cartonization</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Shipment grouping &amp; audits</strong></a><a href="#panel-outbound" data-feature-tab="tab-outbound"><strong>Carrier shipping</strong></a></div><aside class="solutions-popular"><h2>POPULAR LINKS</h2><a href="#journey">Follow the warehouse workflow ↗</a><a href="#panel-visibility" data-feature-tab="tab-visibility">Dashboards &amp; operational queries ↗</a><a href="#panel-strategy" data-feature-tab="tab-strategy">Strategy &amp; location rules ↗</a><a href="#view-contact" data-page-target="contact">Discuss your warehouse needs ↗</a><button class="solutions-ella" data-open-ella type="button">Ask Ella about TK WMS ↗</button></aside>
+    </div></section>
   </header>
   <div class="solutions-backdrop" id="solutionsBackdrop" hidden></div>
 
@@ -1069,7 +1077,8 @@
 
     const navigationPanels = [
       { toggle: document.getElementById("solutionsToggle"), panel: document.getElementById("solutionsMenu") },
-      { toggle: document.getElementById("platformToggle"), panel: document.getElementById("platformMenu") }
+      { toggle: document.getElementById("platformToggle"), panel: document.getElementById("platformMenu") },
+      { toggle: document.getElementById("operationsToggle"), panel: document.getElementById("operationsMenu") }
     ];
     function closeNavigation(returnFocus = false) {
       const active = navigationPanels.find(item => !item.panel.hidden);
@@ -1086,7 +1095,7 @@
       panel.addEventListener("click", event => { if (event.target.closest("a")) closeNavigation(); });
     });
     document.getElementById("solutionsClose").addEventListener("click", () => closeNavigation(true));
-    document.querySelector("[data-close-navigation]").addEventListener("click", () => closeNavigation(true));
+    document.querySelectorAll("[data-close-navigation]").forEach(button => button.addEventListener("click", () => closeNavigation(true)));
     document.getElementById("solutionsBackdrop").addEventListener("click", () => closeNavigation());
     document.addEventListener("keydown", event => { if (event.key === "Escape" && navigationPanels.some(item => !item.panel.hidden)) { closeNavigation(true); event.stopImmediatePropagation(); } });
     document.addEventListener("focusin", event => { if (!event.target.closest(".site-header")) closeNavigation(); });
