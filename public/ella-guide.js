@@ -1,4 +1,5 @@
 import knowledge from './ella-knowledge.js';
+import { explainTerminology } from './ella-terminology.js';
 import { answerBasicElla } from './ella-answers.js';
 const normalize = text => text.toLowerCase().normalize('NFKC').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g,' ').trim();
 const stem = word => word.replace(/(ing|ed|s)$/,'');
@@ -23,6 +24,8 @@ const aliases = [
 ];
 export function answerElla(question, previousUrl = null) {
   const raw = String(question ?? '').trim().slice(0,500);
+  const terminology = explainTerminology(raw);
+  if (terminology) return terminology;
   const basic = answerBasicElla(raw);
   if (!basic) return null;
   const text = normalize(raw);

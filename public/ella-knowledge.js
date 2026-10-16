@@ -109,6 +109,32 @@ export default [
     ]
   },
   {
+    "url": "/operations/purchase-orders-asns.html",
+    "title": "Purchase orders, ASNs & receiving",
+    "sections": [
+      {
+        "heading": "PO: the purchasing request",
+        "text": "A purchase order is the buyer’s order to a supplier. It describes the items and quantities requested and may include other purchasing details. For the warehouse, the PO provides context about what was ordered; it does not by itself confirm that a delivery has arrived."
+      },
+      {
+        "heading": "ASN: the expected shipment",
+        "text": "An Advance Shipping Notice, also called an Advance Shipment Notice, describes an upcoming delivery before it arrives. It can include expected items and quantities, with exact contents depending on the sender and setup. The ASN describes a shipment, which may contain only part of an order."
+      },
+      {
+        "heading": "Receipt: the actual arrival",
+        "text": "Receiving records the goods that actually arrive. This is distinct from both the purchasing request and the shipment announcement. Checking an actual delivery against what was expected helps identify differences that need review, such as a short delivery or an unexpected quantity."
+      },
+      {
+        "heading": "How the documents relate",
+        "text": "A single purchase order may be fulfilled through multiple shipments. For example, a PO might request 100 units while an ASN describes an initial shipment of 60. Receiving establishes what actually arrived in that delivery. This example illustrates the concepts; it does not describe a live TK WMS order or a particular matching configuration."
+      },
+      {
+        "heading": "Where this fits in TK WMS",
+        "text": "The documented TK WMS inbound areas include appointments, yard activity, receipt processing, inspections, returns, labels, and putaway. These workflows provide the surrounding operational context. Specific PO-to-ASN matching rules, integrations, document creation steps, and automatic actions depend on the implemented setup and are not specified in this public guide."
+      }
+    ]
+  },
+  {
     "url": "/operations/replenishment.html",
     "title": "Replenishment & tasks",
     "sections": [

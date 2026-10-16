@@ -86,3 +86,28 @@ test('Follow-up uses the previous topic without making live-data claims', () => 
   assert.notEqual(answerElla('Tell me more', '/invalid-page.html').kind, 'detail');
   assert.equal(answerElla('How do I configure FIFO for inventory?', initial.url).kind, 'fallback');
 });
+
+test('PO and ASN terminology works with acronyms, full names, and comparisons', () => {
+  for (const q of ['explain PO & ASN system','What is a PO?','Explain P.O. and A.S.N.','What is an ASN?','PO vs ASN','Explain purchase orders and advance shipping notices','What is an advance shipment notice?']) {
+    const reply=answerElla(q);
+    assert.equal(reply.kind,'answer',q);
+    assert.equal(reply.url,'/operations/purchase-orders-asns.html');
+    assert.ok(existsSync('.'+reply.url));
+    assert.match(reply.answer,/Purchase Order|purchase order|Advance Shipping Notice/);
+  }
+  assert.match(answerElla('explain PO & ASN system').answer,/what was ordered/);
+  assert.match(answerElla('explain PO & ASN system').answer,/what actually arrived/);
+});
+test('PO and ASN questions do not fabricate live status or automatic features', () => {
+  for (const q of ['What is the status of my PO?','Look up ASN 12345','How do I create a PO?','Does ASN automatically update inventory?','Explain ASN EDI integration']) {
+    assert.equal(answerElla(q).kind,'fallback',q);
+  }
+});
+
+test('Common warehouse acronyms have plain-language explanations', () => {
+  for (const [term, meaning] of [['SKU','Stock Keeping Unit'],['UOM','Unit of Measure'],['RF','Radio Frequency'],['BOM','Bill of Material']]) {
+    const reply = answerElla('What does ' + term + ' stand for?');
+    assert.equal(reply.kind,'answer');
+    assert.ok(reply.answer.includes(meaning));
+  }
+});
