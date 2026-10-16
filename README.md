@@ -18,13 +18,18 @@ Open the local URL printed by Vite. To verify a production build, run `npm run b
 
 ## Ella messaging guide
 
-Ella answers basic questions and retrieves longer explanations from the public product guides. Visitors can compare named topics and follow a response with “Tell me more.” Replies quote saved guide paragraphs and link to their source pages. Unknown features, exact customer setup, troubleshooting, pricing, and live-data requests receive a fallback.
+Ella runs entirely in the browser, with no connected AI model, API key, per-message token usage, or live WMS access. She combines saved TK WMS descriptions, detail retrieved from the public product guides, and a curated 65-topic general WMS reference. The general reference explains concepts without presenting unverified concepts as TK WMS features.
 
-`public/ella-answers.js` supplies short answers and conservative fallback rules. `public/ella-guide.js` selects documented detail, comparisons, and follow-up context. `public/ella-chat.js` renders the conversation. `scripts/generate-ella-knowledge.mjs` refreshes the saved guide knowledge before each production build; run it manually when testing content changes locally.
+Visitors can ask definitions, compare concepts such as FIFO and FEFO, request detailed documented explanations, and follow up with “Tell me more” or “Give me an example.” Matching handles selected synonyms, acronyms, and simple spelling errors. Unknown features, exact customer configuration, live records, and other unsupported requests receive a fallback. This is offline retrieval, not open-ended AI reasoning; it cannot reliably answer every question.
 
-There is no connected AI service or live WMS access. This is topic matching and retrieval, so it cannot reason about arbitrary warehouse scenarios or understand every phrasing. Messages remain in the current browser page and are not sent to a server. Run `node --test tests/ella-answers.test.mjs` to verify answers, comparisons, follow-ups, and fallbacks.
+- `public/ella-offline.js`: selects general-reference topics, comparisons, spelling matches, and follow-up context.
+- `public/wms-library.js`: curated definitions, explanations, examples, and related TK WMS links.
+- `public/ella-answers.js`, `public/ella-guide.js`, and `public/ella-terminology.js`: documented TK WMS replies and PO/ASN explanations.
+- `public/ella-chat.js`: renders messages using safe text nodes.
+- `scripts/generate-ella-knowledge.mjs`: refreshes saved product-guide content before production builds.
+- `scripts/build-wms-reference.mjs`: builds the searchable `/resources/wms-guide.html` from the same reference used by Ella.
 
-Deploy as a Vite site with `npm run build` and output directory `dist`.
+Run `node --test tests/*.test.mjs` to check documented replies, broad terminology, comparisons, context, spelling, fallbacks, and reference destinations. Messages remain in the current page session and are not sent to a server. Deploy with `npm run build` and output directory `dist`.
 
 ## Included
 

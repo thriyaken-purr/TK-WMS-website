@@ -1,4 +1,4 @@
-import { answerElla } from './ella-guide.js';
+import { answerElla } from './ella-offline.js';
 const form = document.getElementById('ellaComposer');
 const input = document.getElementById('ellaQuestion');
 const thread = document.getElementById('ellaThread');
@@ -39,6 +39,17 @@ function send(question) {
     reply.append(link);
   }
   if (response.kind !== 'fallback') previousUrl = response.contextUrl || response.url || previousUrl;
+  const suggestions = document.querySelector('.ella-suggestions');
+  if (response.suggestions && suggestions) {
+    suggestions.replaceChildren();
+    for (const text of response.suggestions) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = text;
+      button.addEventListener('click', () => send(text));
+      suggestions.append(button);
+    }
+  }
   exchange.append(user, reply);
   thread.append(exchange);
   while (thread.children.length > 11) thread.firstElementChild.remove();

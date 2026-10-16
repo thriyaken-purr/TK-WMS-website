@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { answerElla } from '../public/ella-guide.js';
+import { answerElla } from '../public/ella-offline.js';
 
 const basic = [
   ['Was TK WMS built using AI?', '/platform/ai-development.html'],

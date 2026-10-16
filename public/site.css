@@ -573,3 +573,20 @@
 .ella-detail-title { display:block; margin:14px 0 8px; font-size:14px; }
 .ella-detail-heading { display:block; font-weight:650; margin:12px 0 5px; }
 .ella-detail-text { display:block; }
+
+.wms-reference { max-width:900px; }
+.wms-reference>label { display:block; margin-bottom:10px; font-size:14px; font-weight:600; }
+.wms-reference>input { width:100%; padding:15px; border:1px solid #b7c7aa; border-radius:6px; background:white; color:var(--ink); font:inherit; font-size:16px; }
+#wmsResults { margin:12px 0 30px; color:var(--muted); font-size:13px; }
+.wms-topic { border-bottom:1px solid #dce3d7; scroll-margin-top:160px; }
+.wms-topic[hidden] { display:none; }
+.wms-topic summary { padding:20px 5px; font-size:19px; font-weight:550; cursor:pointer; }
+.wms-topic>div { padding:0 5px 26px; max-width:760px; }
+.wms-topic p { font-size:16px; line-height:1.85; color:#56684f; }
+.wms-topic h3 { margin:22px 0 8px; font-size:16px; }
+.wms-topic a { font-size:14px; text-underline-offset:4px; }
+.wms-topic .wms-scope { font-size:13px; font-style:italic; }
+.wms-reading { margin-top:55px; padding:25px; background:#edf2e5; }
+.wms-reading h2 { font-size:24px; }
+.wms-reading p { font-size:14px; line-height:1.85; }
+.ella-bubble { white-space:pre-line; }
