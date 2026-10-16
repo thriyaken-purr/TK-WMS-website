@@ -35,9 +35,14 @@ Deploy as a Vite site with `npm run build` and output directory `dist`.
 
 The site describes menus observed in TK WMS; exact availability can depend on a user's role and configuration. Operational access should be provided by a separately authenticated application, not this public marketing site. The contact form is a preview only and does not send or store submissions until a verified TK WMS recipient and delivery service are configured.
 
-## Dedicated product pages
+## Product pages and navigation
 
-- `/operations.html`: operational workspaces, controls, and workflow examples.
-- `/platform-tools.html`: strategy, rules, workflow configuration, dashboards, implementation tools, and training.
+The homepage’s Explore section remains the quick menu overview. Three category pages provide distinct introductions:
 
-Vite builds all three HTML entry points. Feature links open the relevant product page. Content reflects the product descriptions documented in this repository.
+- `/solutions.html`: inventory accuracy, fulfillment control, inbound flow, and configurable execution.
+- `/operations.html`: the eight operational areas from master data to cross-docking.
+- `/platform-tools.html`: strategy, rules, workflow design, visibility, and implementation.
+
+Each dropdown topic opens its own HTML page under `/solutions/`, `/operations/`, or `/platform/`. Seventeen topic pages contain original explanatory content and workflow walkthroughs based on the product information documented in this repository. These pages do not read live WMS records.
+
+Shared styles and dropdown behavior live in `public/site.css` and `public/navigation.js`. Vite builds every HTML entry point listed or discovered in `vite.config.js`.

@@ -1,14 +1,13 @@
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
+import { readdirSync } from "node:fs";
+
+const root = fileURLToPath(new URL(".", import.meta.url));
+const pages = ["index.html", "solutions.html", "operations.html", "platform-tools.html",
+  ...["solutions", "operations", "platform"].flatMap(directory =>
+    readdirSync(new URL(`./${directory}/`, import.meta.url))
+      .filter(name => name.endsWith(".html")).map(name => `${directory}/${name}`))];
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        home: fileURLToPath(new URL("./index.html", import.meta.url)),
-        operations: fileURLToPath(new URL("./operations.html", import.meta.url)),
-        platform: fileURLToPath(new URL("./platform-tools.html", import.meta.url))
-      }
-    }
-  }
+  build: { rollupOptions: { input: pages.map(page => `${root}${page}`) } }
 });
