@@ -18,7 +18,7 @@ Open the local URL printed by Vite. To verify a production build, run `npm run b
 
 ## Ella quick guide
 
-Ella offers 17 expandable questions with simple, prewritten WMS answers. Visitors select a question to reveal its answer. No chat input, AI service, API key, or backend is needed.
+Ella offers 17 selectable questions with simple, prewritten WMS answers. Visitors select a WMS question and send it to see a prewritten reply in a compact messaging panel. No chat input, AI service, API key, or backend is needed.
 
 Deploy as a Vite site with `npm run build` and output directory `dist`.
 

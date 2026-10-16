@@ -173,10 +173,10 @@
     .footer-links a:hover { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
     .footer-bottom { min-height: 43px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid rgba(255,255,255,.2); color: #afbeb3; font-size: 9px; }
     .footer-note { text-align: right; }
-    .ella-widget { position: fixed; right: 22px; bottom: 20px; z-index: 10; width: min(380px, calc(100vw - 28px)); }
-    .ella-greeting { position: absolute; right: 25px; bottom: 76px; width: min(285px, calc(100vw - 64px)); padding: 40px 16px 14px; border: 1px solid #e3e7e3; border-radius: 11px; background: white; box-shadow: 0 5px 18px rgba(24,36,29,.15); }
+    .ella-widget { position: fixed; right: 22px; bottom: 20px; z-index: 10; width: min(320px, calc(100vw - 28px)); }
+    .ella-greeting { position: absolute; right: 25px; bottom: 76px; width: min(235px, calc(100vw - 64px)); padding: 30px 14px 12px; border: 1px solid #e3e7e3; border-radius: 11px; background: white; box-shadow: 0 5px 18px rgba(24,36,29,.15); }
     .ella-greeting[hidden] { display: none; }
-    .ella-greeting-avatar { position: absolute; top: -30px; left: 50%; width: 60px; height: 60px; transform: translateX(-50%); border: 2px solid white; border-radius: 50%; object-fit: cover; background: #d8e4d2; box-shadow: 0 1px 5px rgba(20,35,27,.1); }
+    .ella-greeting-avatar { position: absolute; top: -24px; left: 50%; width: 48px; height: 48px; transform: translateX(-50%); border: 2px solid white; border-radius: 50%; object-fit: cover; background: #d8e4d2; box-shadow: 0 1px 5px rgba(20,35,27,.1); }
     .ella-greeting-close { position: absolute; top: 5px; right: 7px; width: 24px; height: 24px; border: 0; color: #536159; background: transparent; font-size: 18px; cursor: pointer; }
     .ella-greeting-open { display: block; width: 100%; padding: 0; border: 0; color: #202a24; background: transparent; text-align: left; font-size: 13px; line-height: 1.4; cursor: pointer; }
     .ella-greeting-open:hover { color: #557941; }
@@ -186,7 +186,7 @@
     .ella-launcher svg { width: 26px; height: 26px; }
     .ella-launcher-help { position: absolute; top: -1px; right: -1px; width: 19px; height: 19px; display: grid; place-items: center; border: 2px solid white; border-radius: 50%; color: var(--forest); background: var(--lime); font-size: 9px; font-weight: 800; }
     .ella-avatar { width: 36px; height: 36px; display: block; flex: 0 0 36px; border: 1px solid #d4dfd0; border-radius: 50%; object-fit: cover; background: #d8e4d2; }
-    .ella-panel { position: absolute; right: 0; bottom: 82px; width: 100%; max-height: min(520px, 72svh); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d9e1d9; border-radius: 7px; background: white; color: var(--ink); box-shadow: 0 14px 45px rgba(13,36,27,.2); }
+    .ella-panel { position: absolute; right: 0; bottom: 82px; width: 100%; height: min(390px, 65svh); max-height: min(390px, 65svh); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d9e1d9; border-radius: 14px; background: white; color: var(--ink); box-shadow: 0 14px 45px rgba(13,36,27,.2); }
     .ella-panel[hidden] { display: none; }
     .ella-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 15px 16px; color: white; background: var(--forest); }
     .ella-identity { display: flex; align-items: center; gap: 10px; }
@@ -196,13 +196,15 @@
     .ella-head p:last-child { margin: 4px 0 0; color: #c8d8cd; font-size: 8px; }
     .ella-close { width: 27px; height: 27px; flex: 0 0 27px; border: 0; border-radius: 2px; color: white; background: transparent; font-size: 19px; cursor: pointer; }
     .ella-close:hover { background: rgba(255,255,255,.12); }
-    .ella-faqs { min-height: 0; overflow-y: auto; padding: 12px 16px; }
-    .ella-intro { margin: 0 0 12px; color: #536159; font-size: 13px; line-height: 1.6; }
-    .ella-faq { border-bottom: 1px solid #e5eae4; }
-    .ella-faq summary { padding: 13px 4px; color: #34483b; font-size: 14px; font-weight: 600; line-height: 1.5; cursor: pointer; }
-    .ella-faq summary:hover { color: #557941; }
-    .ella-faq summary:focus-visible { outline: 2px solid #557941; outline-offset: -2px; }
-    .ella-faq p { margin: 0; padding: 0 4px 14px; color: #536159; font-size: 13px; line-height: 1.7; }
+    .ella-thread { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 14px 12px; background: #f5f7f3; }
+    .ella-bubble { flex-shrink: 0; align-self: flex-start; max-width: 90%; margin: 0; padding: 10px 12px; border-radius: 12px 12px 12px 3px; background: white; color: #34483b; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+    .ella-bubble.user { align-self: flex-end; border-radius: 12px 12px 3px 12px; background: var(--forest); color: white; }
+    .ella-composer { flex-shrink: 0; padding: 10px 12px; border-top: 1px solid #e5eae4; }
+    .ella-composer label { display: block; margin-bottom: 6px; color: #536159; font-size: 11px; font-weight: 600; }
+    .ella-compose-row { display: flex; gap: 6px; }
+    .ella-compose-row select { flex: 1; width: 0; min-width: 0; padding: 9px 6px; border: 1px solid #d6e0d4; border-radius: 8px; background: white; color: #34483b; font: inherit; font-size: 12px; }
+    .ella-compose-row button { width: 36px; border: 0; border-radius: 9px; background: var(--forest); color: white; font-size: 20px; cursor: pointer; }
+    .ella-composer :focus-visible { outline: 2px solid #557941; outline-offset: 2px; }
     .ella-note { margin: 0; padding: 8px 15px 11px; border-top: 1px solid #e5eae4; color: #78847b; font-size: 8px; line-height: 1.5; }
 
     @keyframes hero-swoosh {
@@ -303,12 +305,12 @@
       .footer-col h2 { margin-bottom: 12px; }
       .footer-bottom { align-items: flex-start; flex-direction: column; justify-content: center; gap: 5px; padding: 12px 0; }
       .footer-note { text-align: left; }
-      .ella-widget { right: 12px; bottom: 12px; width: min(380px, calc(100% - 24px)); }
-      .ella-greeting { right: 20px; bottom: 69px; width: min(285px, calc(100vw - 44px)); padding: 37px 14px 12px; }
-      .ella-greeting-avatar { top: -27px; width: 54px; height: 54px; }
+      .ella-widget { right: 12px; bottom: 12px; width: min(320px, calc(100% - 24px)); }
+      .ella-greeting { right: 20px; bottom: 69px; width: min(235px, calc(100vw - 44px)); padding: 30px 14px 12px; }
+      .ella-greeting-avatar { top: -24px; width: 48px; height: 48px; }
       .ella-greeting-open { font-size: 12px; }
       .ella-launcher { width: 54px; height: 54px; }
-      .ella-panel { bottom: 74px; max-height: min(520px, 72svh); }
+      .ella-panel { bottom: 74px; height: min(390px, 65svh); max-height: min(390px, 65svh); }
     }
   </style>
 </head>
@@ -678,30 +680,39 @@
     </section>
     <section class="ella-panel" id="ellaPanel" aria-labelledby="ellaTitle" hidden>
       <header class="ella-head">
-        <div class="ella-identity"><img class="ella-avatar" src="/ella-avatar.jpg" alt="Stock portrait representing Ella, the TK WMS product guide"><div><p class="ella-kicker">TK WMS QUICK GUIDE</p><h2 id="ellaTitle">Ella</h2><p>Simple answers to common warehouse questions.</p></div></div>
+        <div class="ella-identity"><img class="ella-avatar" src="/ella-avatar.jpg" alt="Stock portrait representing Ella, the TK WMS product guide"><div><p class="ella-kicker">TK WMS QUICK GUIDE</p><h2 id="ellaTitle">Ella</h2><p>Your guide to TK WMS basics.</p></div></div>
         <button class="ella-close" id="ellaClose" type="button" aria-label="Close Ella">×</button>
       </header>
-      <div class="ella-faqs" aria-label="Basic WMS questions">
-        <p class="ella-intro">Hi, I’m Ella. Choose a question below to see a simple answer.</p>
-        <details class="ella-faq"><summary>What is a WMS?</summary><p>A warehouse management system helps organize goods and daily warehouse work, from receiving deliveries to shipping orders.</p></details>
-        <details class="ella-faq"><summary>What does TK WMS help with?</summary><p>TK WMS brings together receiving, putaway, inventory, picking, packing, shipping, counts, and task management.</p></details>
-        <details class="ella-faq"><summary>What is receiving?</summary><p>Receiving is checking goods when they arrive at the warehouse. TK WMS includes receiving, inspections, returns, and labels.</p></details>
-        <details class="ella-faq"><summary>What is putaway?</summary><p>Putaway means moving received goods into storage locations. Suggested-location rules help guide where goods should go.</p></details>
-        <details class="ella-faq"><summary>What is inventory?</summary><p>Inventory is the stock held in a warehouse. TK WMS includes tools for reviewing stock, adjustments, holds, and moves.</p></details>
-        <details class="ella-faq"><summary>What is an LPN?</summary><p>An LPN is a license plate number: an identifier used to track a handling unit, such as a pallet or carton, and its contents.</p></details>
-        <details class="ella-faq"><summary>What is picking?</summary><p>Picking means collecting the items needed for an order. TK WMS includes wave planning, allocation, and picking workflows.</p></details>
-        <details class="ella-faq"><summary>What happens after picking?</summary><p>Orders can move through packing, cartonization, audits, shipment grouping, and carrier shipping, depending on the warehouse setup.</p></details>
-        <details class="ella-faq"><summary>What is replenishment?</summary><p>Replenishment moves stock to where it is needed, such as refilling a picking location. TK WMS includes replenishment requests and task queues.</p></details>
-        <details class="ella-faq"><summary>What is a cycle count?</summary><p>A cycle count checks a portion of warehouse stock against recorded quantities. TK WMS includes count plans, count tasks, and variance review.</p></details>
-        <details class="ella-faq"><summary>What is kitting?</summary><p>Kitting combines individual items into a kit. TK WMS includes bills of material and assembly or disassembly work orders.</p></details>
-        <details class="ella-faq"><summary>What is cross-docking?</summary><p>Cross-docking coordinates eligible incoming goods with outgoing demand so goods can move toward shipment with less time in storage.</p></details>
-        <details class="ella-faq"><summary>What does the Strategy Engine do?</summary><p>The Strategy Engine helps define how warehouse work is handled using configured strategies, actions, and suggested-location rules.</p></details>
-        <details class="ella-faq"><summary>What are RF and voice workflows?</summary><p>RF workflows guide warehouse work on handheld devices. TK WMS also includes voice-related options and tools for designing screens and workflows.</p></details>
-        <details class="ella-faq"><summary>What can dashboards show?</summary><p>TK WMS includes dashboards for areas such as inbound, putaway, picking, replenishment, tasks, and performance.</p></details>
-        <details class="ella-faq"><summary>Can Ella check my stock or orders?</summary><p>Ella explains basic product information only. To check actual stock or orders, use your authorized TK WMS application.</p></details>
-        <details class="ella-faq"><summary>Will every warehouse have the same features?</summary><p>Available features and workflows depend on your role and warehouse configuration. Explore the website for more product details.</p></details>
+      <div class="ella-thread" id="ellaThread" role="log" aria-label="Conversation with Ella" aria-live="polite" tabindex="0">
+        <p class="ella-bubble">Hi, I’m Ella! Choose a TK WMS question below and I’ll explain it.</p>
       </div>
-      <p class="ella-note">A quick guide to TK WMS. Feature availability depends on your role and warehouse setup.</p>
+      <form class="ella-composer" id="ellaComposer">
+        <label for="ellaTopic">Ask about TK WMS</label>
+        <div class="ella-compose-row">
+          <select id="ellaTopic" name="topic" required>
+            <option value="" disabled selected>Choose a question…</option>
+            <option value="0">What is a WMS?</option>
+            <option value="1">What does TK WMS help with?</option>
+            <option value="2">What is receiving?</option>
+            <option value="3">What is putaway?</option>
+            <option value="4">What is inventory?</option>
+            <option value="5">What is an LPN?</option>
+            <option value="6">What is picking?</option>
+            <option value="7">What happens after picking?</option>
+            <option value="8">What is replenishment?</option>
+            <option value="9">What is a cycle count?</option>
+            <option value="10">What is kitting?</option>
+            <option value="11">What is cross-docking?</option>
+            <option value="12">What does the Strategy Engine do?</option>
+            <option value="13">What are RF and voice workflows?</option>
+            <option value="14">What can dashboards show?</option>
+            <option value="15">Can Ella check my stock or orders?</option>
+            <option value="16">Will every warehouse have the same features?</option>
+          </select>
+          <button type="submit" aria-label="Send selected WMS question">↑</button>
+        </div>
+      </form>
+      <p class="ella-note">Answers from this website’s TK WMS product guide.</p>
     </section>
     <button class="ella-launcher" id="ellaLauncher" type="button" aria-label="Open Ella’s WMS guide" aria-controls="ellaPanel" aria-expanded="false" title="Explore with Ella">
       <svg viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M11 7.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2.5v4l-5-4H11a2 2 0 0 1-2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 5.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-6.5l-5 4v-4H5a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -811,6 +822,26 @@
       else ellaGreeting.hidden = ellaGreetingDismissed || document.body.dataset.page !== "home";
       if (returnFocus) ellaLauncher.focus();
     }
+
+    const ellaAnswers = [{"question": "What is a WMS?", "answer": "A warehouse management system helps organize goods and daily warehouse work, from receiving deliveries to shipping orders."}, {"question": "What does TK WMS help with?", "answer": "TK WMS brings together receiving, putaway, inventory, picking, packing, shipping, counts, and task management."}, {"question": "What is receiving?", "answer": "Receiving is checking goods when they arrive at the warehouse. TK WMS includes receiving, inspections, returns, and labels."}, {"question": "What is putaway?", "answer": "Putaway means moving received goods into storage locations. Suggested-location rules help guide where goods should go."}, {"question": "What is inventory?", "answer": "Inventory is the stock held in a warehouse. TK WMS includes tools for reviewing stock, adjustments, holds, and moves."}, {"question": "What is an LPN?", "answer": "An LPN is a license plate number: an identifier used to track a handling unit, such as a pallet or carton, and its contents."}, {"question": "What is picking?", "answer": "Picking means collecting the items needed for an order. TK WMS includes wave planning, allocation, and picking workflows."}, {"question": "What happens after picking?", "answer": "Orders can move through packing, cartonization, audits, shipment grouping, and carrier shipping, depending on the warehouse setup."}, {"question": "What is replenishment?", "answer": "Replenishment moves stock to where it is needed, such as refilling a picking location. TK WMS includes replenishment requests and task queues."}, {"question": "What is a cycle count?", "answer": "A cycle count checks a portion of warehouse stock against recorded quantities. TK WMS includes count plans, count tasks, and variance review."}, {"question": "What is kitting?", "answer": "Kitting combines individual items into a kit. TK WMS includes bills of material and assembly or disassembly work orders."}, {"question": "What is cross-docking?", "answer": "Cross-docking coordinates eligible incoming goods with outgoing demand so goods can move toward shipment with less time in storage."}, {"question": "What does the Strategy Engine do?", "answer": "The Strategy Engine helps define how warehouse work is handled using configured strategies, actions, and suggested-location rules."}, {"question": "What are RF and voice workflows?", "answer": "RF workflows guide warehouse work on handheld devices. TK WMS also includes voice-related options and tools for designing screens and workflows."}, {"question": "What can dashboards show?", "answer": "TK WMS includes dashboards for areas such as inbound, putaway, picking, replenishment, tasks, and performance."}, {"question": "Can Ella check my stock or orders?", "answer": "Ella explains basic product information only. To check actual stock or orders, use your authorized TK WMS application."}, {"question": "Will every warehouse have the same features?", "answer": "Available features and workflows depend on your role and warehouse configuration. Explore the website for more product details."}];
+    document.getElementById("ellaComposer").addEventListener("submit", event => {
+      event.preventDefault();
+      const topic = document.getElementById("ellaTopic");
+      if (topic.value === "") return;
+      const entry = ellaAnswers[Number(topic.value)];
+      if (!entry) return;
+      const thread = document.getElementById("ellaThread");
+      for (const [text, isUser] of [[entry.question, true], [entry.answer, false]]) {
+        const bubble = document.createElement("p");
+        bubble.className = "ella-bubble" + (isUser ? " user" : "");
+        bubble.textContent = text;
+        thread.append(bubble);
+      }
+      while (thread.children.length > 21) thread.firstElementChild.remove();
+      thread.scrollTop = thread.scrollHeight;
+      topic.value = "";
+      topic.focus();
+    });
 
     ellaLauncher.addEventListener("click", () => {
       const isOpening = ellaPanel.hidden;
