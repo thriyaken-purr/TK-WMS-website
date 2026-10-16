@@ -63,3 +63,7 @@ Shared styles and dropdown behavior live in `public/site.css` and `public/naviga
 ## Content structure
 
 The homepage introduces the product, preserves the six capability summaries, and helps visitors choose a question to investigate. Explore is a concise menu index; the detailed product explanations belong to dedicated pages. Solution stories use illustrative operational situations, Operations explains the workspaces, and Platform explains the configuration concerns. Each detail page has a contextual reading path instead of a repeated set of recommendations. General WMS definitions remain in the separate searchable reference.
+
+## Visual polish
+
+Shared `public/polish.js` adds a reading-progress indicator and one-time scroll reveals. Content remains visible without JavaScript; reduced-motion preferences bypass decorative entrances and hover animation. The homepage retains its full-screen warehouse photo, serif headline, and light sweep. Shared card spacing, focus states, and mobile layouts are defined in `public/site.css`.
