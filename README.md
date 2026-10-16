@@ -16,9 +16,11 @@ npm run dev
 
 Open the local URL printed by Vite. To verify a production build, run `npm run build`; use `npm run preview` to serve that build locally.
 
-## Ella quick guide
+## Ella messaging guide
 
-Ella offers 34 selectable questions with prewritten answers about the TK WMS features documented on the website. Visitors select a WMS question and send it to see a prewritten reply in a compact messaging panel. No chat input, AI service, API key, or backend is needed.
+Visitors can type basic TK WMS questions or send an example question. Ella uses local topic matching and saved public product descriptions in `public/ella-answers.js`; she does not use an AI service or connect to live warehouse records. Unknown terms, detailed implementation questions, pricing questions, and live-data requests receive a polite fallback with a relevant guide link. Replies are intentionally conservative and do not understand every phrasing.
+
+The chat controller is `public/ella-chat.js`. Messages stay in the current page session and are not sent to a server. To check basic replies and fallbacks, run `node --test tests/ella-answers.test.mjs`.
 
 Deploy as a Vite site with `npm run build` and output directory `dist`.
 

@@ -194,7 +194,7 @@
     .ella-composer { flex-shrink: 0; padding: 10px 12px; border-top: 1px solid #e5eae4; }
     .ella-composer label { display: block; margin-bottom: 6px; color: #536159; font-size: 11px; font-weight: 600; }
     .ella-compose-row { display: flex; gap: 6px; }
-    .ella-compose-row select { flex: 1; width: 0; min-width: 0; padding: 9px 6px; border: 1px solid #d6e0d4; border-radius: 8px; background: white; color: #34483b; font: inherit; font-size: 12px; }
+    .ella-compose-row input { flex: 1; width: 0; min-width: 0; padding: 9px 6px; border: 1px solid #d6e0d4; border-radius: 8px; background: white; color: #34483b; font: inherit; font-size: 12px; }
     .ella-compose-row button { width: 36px; border: 0; border-radius: 9px; background: var(--forest); color: white; font-size: 20px; cursor: pointer; }
     .ella-composer :focus-visible { outline: 2px solid #557941; outline-offset: 2px; }
     .ella-note { margin: 0; padding: 8px 15px 11px; border-top: 1px solid #e5eae4; color: #78847b; font-size: 8px; line-height: 1.5; }
@@ -540,3 +540,11 @@
 .story-card:focus-visible { outline:2px solid #698b3e; outline-offset:3px; }
 @media(max-width:1100px) { .header-nav { flex-wrap:wrap; } }
 @media(max-width:750px) { .story-hero,.story-body,.story-related,.story-step-section { padding:45px 24px; } .story-section { grid-template-columns:1fr; gap:10px; padding:28px 0; } .story-section p { font-size:16px; } .story-cards { grid-template-columns:1fr; } .story-steps { grid-template-columns:1fr 1fr; } .nav-group>a { font-size:11px; } .nav-group .solutions-toggle { padding:0 3px; min-width:23px; } }
+
+.ella-exchange { display:flex; flex-direction:column; gap:10px; flex-shrink:0; }
+.ella-answer-link { display:block; margin-top:9px; color:#456a30; font-size:12px; text-underline-offset:3px; }
+.ella-suggestions { display:flex; flex-wrap:wrap; gap:6px; padding:8px 12px; background:#f5f7f3; }
+.ella-suggestions button { border:1px solid #d4dfca; border-radius:15px; background:white; color:#45613b; font:inherit; font-size:11px; padding:6px 10px; cursor:pointer; }
+.ella-suggestions button:hover { background:#e7efda; }
+.ella-suggestions button:focus-visible { outline:2px solid #63833d; outline-offset:2px; }
+@media(max-width:650px) { .ella-compose-row input { font-size:16px; } }

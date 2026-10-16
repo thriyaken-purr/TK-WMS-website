@@ -376,52 +376,21 @@
         <button class="ella-close" id="ellaClose" type="button" aria-label="Close Ella">×</button>
       </header>
       <div class="ella-thread" id="ellaThread" role="log" aria-label="Conversation with Ella" aria-live="polite" tabindex="0">
-        <p class="ella-bubble">Hi, I’m Ella! Ask me a question about TK WMS. Choose a question below to get started.</p>
+        <p class="ella-bubble">Hi, I’m Ella! Ask me a question about TK WMS. Type a basic question below, or try an example.</p>
+      </div>
+      <div class="ella-suggestions" aria-label="Example questions">
+        <button type="button" data-ella-suggestion="What does the Inventory Workbench show?">Inventory</button>
+        <button type="button" data-ella-suggestion="What does the Strategy Engine do?">Strategy Engine</button>
+        <button type="button" data-ella-suggestion="What is kitting?">Kitting</button>
       </div>
       <form class="ella-composer" id="ellaComposer">
-        <label for="ellaTopic">Ask about TK WMS</label>
+        <label for="ellaQuestion">Ask about TK WMS</label>
         <div class="ella-compose-row">
-          <select id="ellaTopic" name="topic" required>
-            <option value="" disabled selected>Choose a question…</option>
-            <option value="0">What can I review in the Inventory Workbench?</option>
-            <option value="1">Can I correct stock quantities and move LPNs in TK WMS?</option>
-            <option value="2">Can I place an LPN on hold in TK WMS?</option>
-            <option value="3">Does TK WMS have serial tracking and recall tools?</option>
-            <option value="4">Where are replenishment methods configured?</option>
-            <option value="5">What can I see on replenishment requests?</option>
-            <option value="6">How can I follow task assignments and progress?</option>
-            <option value="7">Which urgent warehouse work does the overview highlight?</option>
-            <option value="8">How does TK WMS organize cycle count work?</option>
-            <option value="9">Can TK WMS track count task completion?</option>
-            <option value="10">How are count differences reviewed in TK WMS?</option>
-            <option value="11">Can I monitor open counts and accuracy?</option>
-            <option value="12">Can I define kit components in TK WMS?</option>
-            <option value="13">Does TK WMS support assembly and disassembly orders?</option>
-            <option value="14">Can I configure stations for kitting work?</option>
-            <option value="15">How do I follow kitting work-order progress?</option>
-            <option value="16">Does TK WMS have a dedicated cross-docking workspace?</option>
-            <option value="17">What can I configure in the Strategy Engine?</option>
-            <option value="18">What do strategy actions control in TK WMS?</option>
-            <option value="19">Can I configure how TK WMS suggests locations?</option>
-            <option value="20">What are Reservation Attribute Profiles used for?</option>
-            <option value="21">Does TK WMS have business-rule configuration?</option>
-            <option value="22">Where are business-rule actions maintained?</option>
-            <option value="23">What do Workflow Policies configure?</option>
-            <option value="24">Can I configure warehouse workflow screens?</option>
-            <option value="25">Can I configure workflow steps and policies?</option>
-            <option value="26">Can I configure handheld RF menus in TK WMS?</option>
-            <option value="27">Does TK WMS include voice-related configuration?</option>
-            <option value="28">Which dashboards are available in TK WMS?</option>
-            <option value="29">Which records can I investigate using TK WMS queries?</option>
-            <option value="30">Does TK WMS include report, label, and interface designers?</option>
-            <option value="31">What integration and data tools does TK WMS include?</option>
-            <option value="32">Can I manage warehouses, users, roles, and permissions?</option>
-            <option value="33">Does TK WMS include phased training?</option>
-          </select>
-          <button type="submit" aria-label="Send selected WMS question">↑</button>
+          <input id="ellaQuestion" name="question" type="text" placeholder="Ask a basic WMS question…" maxlength="500" autocomplete="off" required aria-describedby="ellaNote">
+          <button type="submit" aria-label="Send question to Ella">↑</button>
         </div>
       </form>
-      <p class="ella-note">Answers from this website’s TK WMS product guide.</p>
+      <p class="ella-note" id="ellaNote">Basic answers from our product guide. No access to live WMS records. Please don’t share private data.</p>
     </section>
     <button class="ella-launcher" id="ellaLauncher" type="button" aria-label="Open Ella’s WMS guide" aria-controls="ellaPanel" aria-expanded="false" title="Explore with Ella">
       <svg viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M11 7.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2.5v4l-5-4H11a2 2 0 0 1-2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 5.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-6.5l-5 4v-4H5a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -540,26 +509,6 @@
       tab.focus({ preventScroll: true });
     }));
 
-    const ellaAnswers = [{"question": "What can I review in the Inventory Workbench?", "answer": "Review stock by warehouse, item, and location, including on-hand and allocated quantities. Workbench filters include held and zero-quantity inventory, with multi-select actions for supported inventory work."}, {"question": "Can I correct stock quantities and move LPNs in TK WMS?", "answer": "Use adjustment workflows to correct inventory records and LPN move workflows to change where a handling unit is stored. These actions are separate from read-only inventory inquiries."}, {"question": "Can I place an LPN on hold in TK WMS?", "answer": "Place or release LPN holds and review reservation controls. Reservation-attribute profiles are configured separately and can be used by the system's reservation logic."}, {"question": "Does TK WMS have serial tracking and recall tools?", "answer": "Use serial-tracking inquiries to trace serialized stock and recall menus to find and manage inventory associated with a recall process."}, {"question": "Where are replenishment methods configured?", "answer": "Maintain replenishment methods and their associated setup. These are configuration menus, separate from the requests that operators execute."}, {"question": "What can I see on replenishment requests?", "answer": "Review requests, their priority and status, and the inventory movement needed to replenish forward-pick work."}, {"question": "How can I follow task assignments and progress?", "answer": "View tasks by work type and status, follow assignment and progress, and use task dashboards to monitor activity across warehouse areas."}, {"question": "Which urgent warehouse work does the overview highlight?", "answer": "Surface high-priority or overdue work for review. The overview dashboard groups past-due picks, receipts awaiting putaway, replenishment requests, and open count tasks."}, {"question": "How does TK WMS organize cycle count work?", "answer": "Organize count work for selected inventory or locations and provide the plan from which count tasks are worked."}, {"question": "Can TK WMS track count task completion?", "answer": "Assign and track count activities, due status, and completion as part of the wider warehouse task workflow."}, {"question": "How are count differences reviewed in TK WMS?", "answer": "Bring count differences forward for review and follow-up instead of treating a count as a simple quantity lookup."}, {"question": "Can I monitor open counts and accuracy?", "answer": "Monitor open counts, work due during a shift, and accuracy indicators through the count and performance views."}, {"question": "Can I define kit components in TK WMS?", "answer": "Maintain the bill-of-material records that describe the components used by a kit and referenced by its work orders."}, {"question": "Does TK WMS support assembly and disassembly orders?", "answer": "Create and follow planned work to assemble a kit or disassemble one back into component handling."}, {"question": "Can I configure stations for kitting work?", "answer": "Configure the stations where kitting work is performed, then use those stations as the work moves through production."}, {"question": "How do I follow kitting work-order progress?", "answer": "Review work-order progress and station activity so in-process work can be followed through completion."}, {"question": "Does TK WMS have a dedicated cross-docking workspace?", "answer": "Open the dedicated workspace for reviewing and coordinating cross-dock activity."}, {"question": "What can I configure in the Strategy Engine?", "answer": "Maintain strategies used by configured warehouse processes. The menu provides a central place to work with strategy definitions rather than hard-coding every decision into a screen."}, {"question": "What do strategy actions control in TK WMS?", "answer": "Review the actions associated with strategy and rule behavior. Actions define what the system is configured to do when a decision path applies."}, {"question": "Can I configure how TK WMS suggests locations?", "answer": "Configure the rules used to guide suggested warehouse locations in supported workflows, connecting location setup with the decision logic used during execution."}, {"question": "What are Reservation Attribute Profiles used for?", "answer": "Define attribute profiles used by inventory reservation controls, adding a configurable layer to how stock can be selected for warehouse demand."}, {"question": "Does TK WMS have business-rule configuration?", "answer": "Open the assistant setup area associated with business-rule configuration and the policies that guide warehouse processes."}, {"question": "Where are business-rule actions maintained?", "answer": "Maintain the actions linked to configured business rules, providing the operational outcome side of rule-driven behavior."}, {"question": "What do Workflow Policies configure?", "answer": "Review and configure policies associated with workflow execution, keeping policy setup distinct from the screens and menus operators use."}, {"question": "Can I configure warehouse workflow screens?", "answer": "Configure the screens used in supported warehouse workflows, including the information presented as users perform their tasks."}, {"question": "Can I configure workflow steps and policies?", "answer": "Work with workflow structure and its policies so process steps and the rules governing them can be managed in the configuration area."}, {"question": "Can I configure handheld RF menus in TK WMS?", "answer": "Maintain radio-frequency menu paths used by warehouse workers on handheld devices, separate from the public product site's navigation."}, {"question": "Does TK WMS include voice-related configuration?", "answer": "Review voice-related options for guided warehouse tasks as part of the configurable worker experience."}, {"question": "Which dashboards are available in TK WMS?", "answer": "Menu views include Putaway, Picking, Allocation, Replenishment, Inbound Performance, Task Activity, Consolidation, and Picking Performance dashboards."}, {"question": "Which records can I investigate using TK WMS queries?", "answer": "Use shipment, inventory, receipt, and transaction queries, plus serial-tracking and user-activity inquiries to investigate specific history."}, {"question": "Does TK WMS include report, label, and interface designers?", "answer": "Use separate designer menus to maintain report layouts, warehouse labels, and system-interface definitions."}, {"question": "What integration and data tools does TK WMS include?", "answer": "Review integration synchronization, use import/export utilities for supported data workflows, and explore the API playground for API-oriented work."}, {"question": "Can I manage warehouses, users, roles, and permissions?", "answer": "Configure warehouse and business-unit records, user accounts, roles, access permissions, and the menus presented to users."}, {"question": "Does TK WMS include phased training?", "answer": "Follow the six phased training areas exposed in TK WMS to organize product learning by stage."}];
-    document.getElementById("ellaComposer").addEventListener("submit", event => {
-      event.preventDefault();
-      const topic = document.getElementById("ellaTopic");
-      if (topic.value === "") return;
-      const entry = ellaAnswers[Number(topic.value)];
-      if (!entry) return;
-      const thread = document.getElementById("ellaThread");
-      for (const [text, isUser] of [[entry.question, true], [entry.answer, false]]) {
-        const bubble = document.createElement("p");
-        bubble.className = "ella-bubble" + (isUser ? " user" : "");
-        bubble.textContent = text;
-        thread.append(bubble);
-      }
-      while (thread.children.length > 21) thread.firstElementChild.remove();
-      thread.scrollTop = thread.scrollHeight;
-      topic.value = "";
-      topic.focus();
-    });
-
     ellaLauncher.addEventListener("click", () => {
       const isOpening = ellaPanel.hidden;
       setEllaOpen(isOpening);
@@ -582,5 +531,6 @@
     updatePageFromScroll();
   </script>
 <script type="module" src="/navigation.js"></script>
+<script type="module" src="/ella-chat.js"></script>
 </body>
 </html>
