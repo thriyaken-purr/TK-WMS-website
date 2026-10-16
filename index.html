@@ -477,6 +477,10 @@
     }
     .home-page .hero h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: 0; line-height: .99; }
     .home-page .hero h1 em { font-style: italic; font-weight: 400; }
+    .platform-feature img { display: block; width: 100%; height: 145px; object-fit: cover; margin-bottom: 20px; }
+    .platform-feature h3 { font-size: 24px; line-height: 1.2; margin-bottom: 14px; }
+    .platform-feature>p:not(.eyebrow) { font-size: 14px; line-height: 1.7; color: var(--muted); }
+    @media(min-width:1001px) { .header-inner { gap: 14px; padding-left: 28px; padding-right: 28px; } .header-nav { gap: 0; } .header-nav a, .solutions-toggle { padding-left: 10px; padding-right: 10px; } }
   </style>
 </head>
 <body data-page="home">
@@ -489,6 +493,7 @@
       <nav class="header-nav" aria-label="TK WMS sections">
         <a id="nav-home" href="#view-home" data-page-link="home" aria-current="location">Home</a>
         <button class="solutions-toggle" id="solutionsToggle" type="button" aria-expanded="false" aria-controls="solutionsMenu">Solutions <span aria-hidden="true">⌄</span></button>
+        <button class="solutions-toggle" id="platformToggle" type="button" aria-expanded="false" aria-controls="platformMenu">Platform &amp; Tools <span aria-hidden="true">⌄</span></button>
         <a id="nav-offers" href="#view-offers" data-page-link="offers">What We Offer</a>
         <a id="nav-menus" href="#view-menus" data-page-link="menus">Explore</a>
         <a id="nav-goal" href="#view-goal" data-page-link="goal">Our Goal</a>
@@ -518,6 +523,15 @@
           <a href="#panel-tools" data-feature-tab="tab-tools"><strong>Tools, admin &amp; training</strong><span>Designers, access &amp; learning</span></a>
         </div>
         <aside class="solutions-popular"><h2>POPULAR LINKS</h2><a href="#view-offers" data-page-target="offers">View all capabilities ↗</a><a href="#journey">Follow the warehouse workflow ↗</a><a href="#view-contact" data-page-target="contact">Contact TK WMS ↗</a><button class="solutions-ella" id="solutionsElla" type="button">Ask Ella a WMS question ↗</button><div class="solutions-feature"><span>CONFIGURE. EXECUTE. UNDERSTAND.</span><h3>A closer look at TK WMS.</h3><p>Explore the tools that connect warehouse work with the rules behind it.</p><a href="#panel-strategy" data-feature-tab="tab-strategy">Explore the Strategy Engine →</a></div></aside>
+      </div>
+    </section>
+    <section class="solutions-menu" id="platformMenu" aria-label="TK WMS platform and tools" hidden>
+      <div class="solutions-top"><p>Build around your warehouse</p><button data-close-navigation type="button" aria-label="Close platform menu">×</button></div>
+      <div class="solutions-grid">
+<div class="solutions-column"><h2>PLATFORM &amp; CONFIGURATION</h2><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Strategy Engine</strong><span>Strategy definitions &amp; actions</span></a><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Location &amp; reservation rules</strong><span>Suggested locations &amp; attribute profiles</span></a><a href="#panel-rules" data-feature-tab="tab-rules"><strong>Business rules &amp; policies</strong><span>Rule actions &amp; workflow policies</span></a><a href="#panel-workflow" data-feature-tab="tab-workflow"><strong>Workflow &amp; RF/voice</strong><span>Screens, workflows &amp; handheld menus</span></a></div>
+<div class="solutions-column"><h2>TOOLS</h2><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Report &amp; Label Designers</strong><span>Maintain operational output layouts</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Interface Designer &amp; Integration Sync</strong><span>Interface definitions &amp; synchronization</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Import/export &amp; API playground</strong><span>Tools for supported data workflows</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Users, roles &amp; access</strong><span>Warehouse, business-unit &amp; menu setup</span></a></div>
+<div class="solutions-column"><h2>LEARN</h2><a href="#panel-strategy" data-feature-tab="tab-strategy"><strong>Understand warehouse decision logic</strong><span>Explore strategies and reservation controls</span></a><a href="#panel-workflow" data-feature-tab="tab-workflow"><strong>Discover workflow design</strong><span>How screen and workflow tools fit together</span></a><a href="#panel-visibility" data-feature-tab="tab-visibility"><strong>Explore dashboards &amp; queries</strong><span>Performance views and operational history</span></a><a href="#panel-tools" data-feature-tab="tab-tools"><strong>Training Phases 1–6</strong><span>Product learning organized by stage</span></a></div>
+<aside class="solutions-popular platform-feature"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Warehouse storage racks and operating floor" loading="lazy"><p class="eyebrow">INSIDE TK WMS</p><h3>The controls behind every warehouse move.</h3><p>From strategy actions to workflow policies, TK WMS gives authorized teams dedicated tools to configure how warehouse work is directed and presented.</p><a href="#panel-strategy" data-feature-tab="tab-strategy">Explore platform capabilities ↗</a><button class="solutions-ella" data-open-ella type="button">Have a question? Ask Ella ↗</button></aside>
       </div>
     </section>
   </header>
@@ -1053,22 +1067,31 @@
       tab.focus({ preventScroll: true });
     }));
 
-    const solutionsToggle = document.getElementById("solutionsToggle");
-    const solutionsMenu = document.getElementById("solutionsMenu");
-    function setSolutionsOpen(open, returnFocus = false) {
-      solutionsMenu.hidden = !open;
-      document.getElementById("solutionsBackdrop").hidden = !open;
-      solutionsToggle.setAttribute("aria-expanded", String(open));
-      if (returnFocus) solutionsToggle.focus();
+    const navigationPanels = [
+      { toggle: document.getElementById("solutionsToggle"), panel: document.getElementById("solutionsMenu") },
+      { toggle: document.getElementById("platformToggle"), panel: document.getElementById("platformMenu") }
+    ];
+    function closeNavigation(returnFocus = false) {
+      const active = navigationPanels.find(item => !item.panel.hidden);
+      navigationPanels.forEach(({toggle, panel}) => { panel.hidden = true; toggle.setAttribute("aria-expanded", "false"); });
+      document.getElementById("solutionsBackdrop").hidden = true;
+      if (returnFocus && active) active.toggle.focus();
     }
-    solutionsToggle.addEventListener("click", () => setSolutionsOpen(solutionsMenu.hidden));
-    document.getElementById("solutionsClose").addEventListener("click", () => setSolutionsOpen(false, true));
-    document.getElementById("solutionsBackdrop").addEventListener("click", () => setSolutionsOpen(false));
-    solutionsMenu.addEventListener("click", event => { if (event.target.closest("a")) setSolutionsOpen(false); });
-    document.addEventListener("keydown", event => { if (event.key === "Escape" && !solutionsMenu.hidden) { setSolutionsOpen(false, true); event.stopImmediatePropagation(); } });
-    document.addEventListener("focusin", event => { if (!solutionsMenu.hidden && !event.target.closest(".site-header")) setSolutionsOpen(false); });
-    document.querySelector(".header-nav").addEventListener("click", event => { if (event.target.closest("a")) setSolutionsOpen(false); });
-    document.getElementById("solutionsElla").addEventListener("click", () => { setSolutionsOpen(false); setEllaOpen(true); document.getElementById("ellaClose").focus(); });
+    navigationPanels.forEach(({toggle, panel}) => {
+      toggle.addEventListener("click", () => {
+        const opening = panel.hidden;
+        closeNavigation();
+        if (opening) { panel.hidden = false; toggle.setAttribute("aria-expanded", "true"); document.getElementById("solutionsBackdrop").hidden = false; }
+      });
+      panel.addEventListener("click", event => { if (event.target.closest("a")) closeNavigation(); });
+    });
+    document.getElementById("solutionsClose").addEventListener("click", () => closeNavigation(true));
+    document.querySelector("[data-close-navigation]").addEventListener("click", () => closeNavigation(true));
+    document.getElementById("solutionsBackdrop").addEventListener("click", () => closeNavigation());
+    document.addEventListener("keydown", event => { if (event.key === "Escape" && navigationPanels.some(item => !item.panel.hidden)) { closeNavigation(true); event.stopImmediatePropagation(); } });
+    document.addEventListener("focusin", event => { if (!event.target.closest(".site-header")) closeNavigation(); });
+    document.querySelector(".header-nav").addEventListener("click", event => { if (event.target.closest("a")) closeNavigation(); });
+    document.querySelectorAll("#solutionsElla, [data-open-ella]").forEach(button => button.addEventListener("click", () => { closeNavigation(); setEllaOpen(true); document.getElementById("ellaClose").focus(); }));
 
     const ellaAnswers = [{"question": "What can I review in the Inventory Workbench?", "answer": "Review stock by warehouse, item, and location, including on-hand and allocated quantities. Workbench filters include held and zero-quantity inventory, with multi-select actions for supported inventory work."}, {"question": "Can I correct stock quantities and move LPNs in TK WMS?", "answer": "Use adjustment workflows to correct inventory records and LPN move workflows to change where a handling unit is stored. These actions are separate from read-only inventory inquiries."}, {"question": "Can I place an LPN on hold in TK WMS?", "answer": "Place or release LPN holds and review reservation controls. Reservation-attribute profiles are configured separately and can be used by the system's reservation logic."}, {"question": "Does TK WMS have serial tracking and recall tools?", "answer": "Use serial-tracking inquiries to trace serialized stock and recall menus to find and manage inventory associated with a recall process."}, {"question": "Where are replenishment methods configured?", "answer": "Maintain replenishment methods and their associated setup. These are configuration menus, separate from the requests that operators execute."}, {"question": "What can I see on replenishment requests?", "answer": "Review requests, their priority and status, and the inventory movement needed to replenish forward-pick work."}, {"question": "How can I follow task assignments and progress?", "answer": "View tasks by work type and status, follow assignment and progress, and use task dashboards to monitor activity across warehouse areas."}, {"question": "Which urgent warehouse work does the overview highlight?", "answer": "Surface high-priority or overdue work for review. The overview dashboard groups past-due picks, receipts awaiting putaway, replenishment requests, and open count tasks."}, {"question": "How does TK WMS organize cycle count work?", "answer": "Organize count work for selected inventory or locations and provide the plan from which count tasks are worked."}, {"question": "Can TK WMS track count task completion?", "answer": "Assign and track count activities, due status, and completion as part of the wider warehouse task workflow."}, {"question": "How are count differences reviewed in TK WMS?", "answer": "Bring count differences forward for review and follow-up instead of treating a count as a simple quantity lookup."}, {"question": "Can I monitor open counts and accuracy?", "answer": "Monitor open counts, work due during a shift, and accuracy indicators through the count and performance views."}, {"question": "Can I define kit components in TK WMS?", "answer": "Maintain the bill-of-material records that describe the components used by a kit and referenced by its work orders."}, {"question": "Does TK WMS support assembly and disassembly orders?", "answer": "Create and follow planned work to assemble a kit or disassemble one back into component handling."}, {"question": "Can I configure stations for kitting work?", "answer": "Configure the stations where kitting work is performed, then use those stations as the work moves through production."}, {"question": "How do I follow kitting work-order progress?", "answer": "Review work-order progress and station activity so in-process work can be followed through completion."}, {"question": "Does TK WMS have a dedicated cross-docking workspace?", "answer": "Open the dedicated workspace for reviewing and coordinating cross-dock activity."}, {"question": "What can I configure in the Strategy Engine?", "answer": "Maintain strategies used by configured warehouse processes. The menu provides a central place to work with strategy definitions rather than hard-coding every decision into a screen."}, {"question": "What do strategy actions control in TK WMS?", "answer": "Review the actions associated with strategy and rule behavior. Actions define what the system is configured to do when a decision path applies."}, {"question": "Can I configure how TK WMS suggests locations?", "answer": "Configure the rules used to guide suggested warehouse locations in supported workflows, connecting location setup with the decision logic used during execution."}, {"question": "What are Reservation Attribute Profiles used for?", "answer": "Define attribute profiles used by inventory reservation controls, adding a configurable layer to how stock can be selected for warehouse demand."}, {"question": "Does TK WMS have business-rule configuration?", "answer": "Open the assistant setup area associated with business-rule configuration and the policies that guide warehouse processes."}, {"question": "Where are business-rule actions maintained?", "answer": "Maintain the actions linked to configured business rules, providing the operational outcome side of rule-driven behavior."}, {"question": "What do Workflow Policies configure?", "answer": "Review and configure policies associated with workflow execution, keeping policy setup distinct from the screens and menus operators use."}, {"question": "Can I configure warehouse workflow screens?", "answer": "Configure the screens used in supported warehouse workflows, including the information presented as users perform their tasks."}, {"question": "Can I configure workflow steps and policies?", "answer": "Work with workflow structure and its policies so process steps and the rules governing them can be managed in the configuration area."}, {"question": "Can I configure handheld RF menus in TK WMS?", "answer": "Maintain radio-frequency menu paths used by warehouse workers on handheld devices, separate from the public product site's navigation."}, {"question": "Does TK WMS include voice-related configuration?", "answer": "Review voice-related options for guided warehouse tasks as part of the configurable worker experience."}, {"question": "Which dashboards are available in TK WMS?", "answer": "Menu views include Putaway, Picking, Allocation, Replenishment, Inbound Performance, Task Activity, Consolidation, and Picking Performance dashboards."}, {"question": "Which records can I investigate using TK WMS queries?", "answer": "Use shipment, inventory, receipt, and transaction queries, plus serial-tracking and user-activity inquiries to investigate specific history."}, {"question": "Does TK WMS include report, label, and interface designers?", "answer": "Use separate designer menus to maintain report layouts, warehouse labels, and system-interface definitions."}, {"question": "What integration and data tools does TK WMS include?", "answer": "Review integration synchronization, use import/export utilities for supported data workflows, and explore the API playground for API-oriented work."}, {"question": "Can I manage warehouses, users, roles, and permissions?", "answer": "Configure warehouse and business-unit records, user accounts, roles, access permissions, and the menus presented to users."}, {"question": "Does TK WMS include phased training?", "answer": "Follow the six phased training areas exposed in TK WMS to organize product learning by stage."}];
     document.getElementById("ellaComposer").addEventListener("submit", event => {
