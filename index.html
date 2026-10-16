@@ -462,6 +462,39 @@
       .home-page .hero::after, .solutions-menu::after { display: none; animation: none; }
       .solutions-grid { animation: none; }
     }
+
+    /* Full-screen photographic homepage with the existing copy and light sweep. */
+    .home-page .hero {
+      display: flex; min-height: calc(100svh - 77px);
+      color: white; background: var(--forest) url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=88") center / cover no-repeat;
+    }
+    .home-page .hero::before {
+      display: block; background: linear-gradient(90deg, rgba(8,29,21,.92), rgba(8,29,21,.7) 45%, rgba(8,29,21,.22)), linear-gradient(0deg, rgba(8,29,21,.5), transparent 55%);
+    }
+    .home-page .hero-inner { width: min(1344px,100%); margin: 0 auto; padding: 85px 48px 180px; }
+    .home-page .hero h1 { max-width: 850px; font-size: clamp(46px,5.6vw,82px); }
+    .home-page .hero h1 em { color: var(--lime); }
+    .home-page .hero-kicker, .home-page .hero-copy { color: #e3ecdf; }
+    .home-page .hero-copy { max-width: 570px; }
+    .home-page .hero .button-text { color: white; }
+    .home-page .hero-index { max-width: 640px; color: #e3ecdf; border-color: rgba(255,255,255,.3); }
+    .home-page .hero-index b { color: var(--lime); }
+    .home-page .hero-visual { position: absolute; inset: auto 48px 35px; min-height: 0; height: auto; background: transparent; }
+    .home-page .hero-visual img, .home-page .hero-visual::after { display: none; }
+    .home-page .hero-caption { position: static; display: flex; align-items: center; flex-wrap: wrap; gap: 20px; width: min(1248px,100%); margin: 0 auto; }
+    .home-page .hero-caption strong { font-size: 20px; margin: 0; }
+    .home-page .hero-caption strong br { display: none; }
+    .home-page .hero-caption a { margin-left: auto; }
+    @media(max-width:650px) {
+      .home-page .hero { min-height: calc(100svh - 115px); }
+      .home-page .hero-inner { padding: 55px 24px 200px; }
+      .home-page .hero h1 { font-size: clamp(40px,9vw,58px); }
+      .home-page .hero-visual { left: 24px; right: 24px; bottom: 28px; }
+      .home-page .hero-caption { gap: 12px; }
+      .home-page .hero-caption>span { width: 100%; }
+      .home-page .hero-caption strong { font-size: 18px; }
+      .home-page .hero-caption a { margin-left: 0; }
+    }
   </style>
 </head>
 <body data-page="home">
