@@ -18,7 +18,7 @@ Open the local URL printed by Vite. To verify a production build, run `npm run b
 
 ## Ella quick guide
 
-Ella offers 17 selectable questions with simple, prewritten WMS answers. Visitors select a WMS question and send it to see a prewritten reply in a compact messaging panel. No chat input, AI service, API key, or backend is needed.
+Ella offers 34 selectable questions with prewritten answers about the TK WMS features documented on the website. Visitors select a WMS question and send it to see a prewritten reply in a compact messaging panel. No chat input, AI service, API key, or backend is needed.
 
 Deploy as a Vite site with `npm run build` and output directory `dist`.
 
@@ -29,7 +29,7 @@ Deploy as a Vite site with `npm run build` and output directory `dist`.
 - Dedicated emphasis on TK WMS strategy, suggested-location rules, reservation attributes, workflow/RF/voice design, and implementation tools
 - Operational visibility and dashboard/query categories based on the menus observed in TK WMS
 - Responsive navigation, cinematic warehouse hero, restrained swoosh motion, and reduced-motion support
-- Multi-column footer navigation and an Ella greeting card, round chat launcher, and FAQ panel with basic WMS questions and answers
+- Multi-column footer navigation and an Ella greeting card, round chat launcher, and messaging panel with TK WMS feature questions and answers
 - Contact section with an inquiry form and direct links into relevant Explore topics
 - Local TK WMS logo and an Unsplash stock portrait used to represent Ella, the product guide (not an actual TK WMS employee)
 
