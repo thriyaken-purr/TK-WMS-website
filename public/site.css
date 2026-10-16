@@ -569,3 +569,7 @@
 .ai-tool-band h2 { font-size:42px; font-weight:500; letter-spacing:-.04em; line-height:1.1; }
 .ai-tool-band p { max-width:600px; font-size:16px; line-height:1.8; color:#56694d; }
 @media(max-width:750px) { .ai-hero { padding:40px 24px 55px; }.ai-hero-grid { grid-template-columns:1fr; gap:35px; }.ai-art { min-height:350px; max-width:450px; width:100%; margin:auto; }.ai-art-label { font-size:8px; }.ai-label-one { left:0; }.ai-label-two { right:0; }.ai-tool-band { padding:45px 24px; }.ai-tool-band>.story-shell { flex-direction:column; align-items:flex-start; gap:15px; } }
+
+.ella-detail-title { display:block; margin:14px 0 8px; font-size:14px; }
+.ella-detail-heading { display:block; font-weight:650; margin:12px 0 5px; }
+.ella-detail-text { display:block; }

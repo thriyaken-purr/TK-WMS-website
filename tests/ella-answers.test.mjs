@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { answerElla } from '../public/ella-answers.js';
+import { answerElla } from '../public/ella-guide.js';
 
 const basic = [
   ['Was TK WMS built using AI?', '/platform/ai-development.html'],
@@ -58,4 +58,31 @@ test('Greetings, empty input, and normalization', () => {
   assert.equal(answerElla('Hi Ella!').kind, 'greeting');
   assert.equal(answerElla('THANK YOU').kind, 'greeting');
   assert.equal(answerElla('  WHAT IS CROSS–DOCKING?  ').url, '/operations/crossdock.html');
+});
+
+test('Detailed explanations use documented paragraphs and source links', () => {
+  for (const question of [
+    'Explain how replenishment methods differ from requests',
+    'How do dashboards differ from queries?',
+    'Explain strategy actions and reservation profiles',
+    'Explain how kitting works'
+  ]) {
+    const reply = answerElla(question);
+    assert.equal(reply.kind, 'detail', question);
+    assert.ok(reply.sections[0].paragraphs.length >= 1);
+    for (const source of reply.sources) assert.ok(existsSync('.' + source.url));
+  }
+});
+test('Comparison covers both named topics', () => {
+  const reply = answerElla('Compare inventory and cycle counting');
+  assert.equal(reply.kind, 'detail');
+  assert.deepEqual(new Set(reply.sources.map(source=>source.url)), new Set(['/operations/inventory.html','/operations/counts.html']));
+});
+test('Follow-up uses the previous topic without making live-data claims', () => {
+  const initial = answerElla('What does the Strategy Engine do?');
+  const reply = answerElla('Tell me more', initial.url);
+  assert.equal(reply.kind, 'detail');
+  assert.equal(reply.sources[0].url, '/platform/strategy.html');
+  assert.notEqual(answerElla('Tell me more', '/invalid-page.html').kind, 'detail');
+  assert.equal(answerElla('How do I configure FIFO for inventory?', initial.url).kind, 'fallback');
 });

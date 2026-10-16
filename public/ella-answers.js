@@ -25,7 +25,7 @@ function fallback(topic, live = false) {
     url: topic?.[3] || '/solutions.html', label: topic?.[2] || 'TK WMS solutions'
   };
 }
-export function answerElla(question) {
+export function answerBasicElla(question) {
   const text = normalize(String(question ?? '').slice(0, 500));
   if (!text) return null;
   if (/^(hi|hello|hey)( ella)?$/.test(text)) return {kind:'greeting', answer:'Hi! Ask me a basic question about TK WMS, such as what the Inventory Workbench shows or what the Strategy Engine does.'};

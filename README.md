@@ -18,9 +18,11 @@ Open the local URL printed by Vite. To verify a production build, run `npm run b
 
 ## Ella messaging guide
 
-Visitors can type basic TK WMS questions or send an example question. Ella uses local topic matching and saved public product descriptions in `public/ella-answers.js`; she does not use an AI service or connect to live warehouse records. Unknown terms, detailed implementation questions, pricing questions, and live-data requests receive a polite fallback with a relevant guide link. Replies are intentionally conservative and do not understand every phrasing.
+Ella answers basic questions and retrieves longer explanations from the public product guides. Visitors can compare named topics and follow a response with “Tell me more.” Replies quote saved guide paragraphs and link to their source pages. Unknown features, exact customer setup, troubleshooting, pricing, and live-data requests receive a fallback.
 
-The chat controller is `public/ella-chat.js`. Messages stay in the current page session and are not sent to a server. To check basic replies and fallbacks, run `node --test tests/ella-answers.test.mjs`.
+`public/ella-answers.js` supplies short answers and conservative fallback rules. `public/ella-guide.js` selects documented detail, comparisons, and follow-up context. `public/ella-chat.js` renders the conversation. `scripts/generate-ella-knowledge.mjs` refreshes the saved guide knowledge before each production build; run it manually when testing content changes locally.
+
+There is no connected AI service or live WMS access. This is topic matching and retrieval, so it cannot reason about arbitrary warehouse scenarios or understand every phrasing. Messages remain in the current browser page and are not sent to a server. Run `node --test tests/ella-answers.test.mjs` to verify answers, comparisons, follow-ups, and fallbacks.
 
 Deploy as a Vite site with `npm run build` and output directory `dist`.
 
