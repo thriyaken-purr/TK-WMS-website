@@ -548,3 +548,24 @@
 .ella-suggestions button:hover { background:#e7efda; }
 .ella-suggestions button:focus-visible { outline:2px solid #63833d; outline-offset:2px; }
 @media(max-width:650px) { .ella-compose-row input { font-size:16px; } }
+
+.ai-hero { padding:65px 48px 80px; background:#edf2e5; overflow:hidden; }
+.ai-hero-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:center; }
+.ai-hero h1 { font:400 clamp(46px,5.5vw,78px)/1.02 Georgia,serif; letter-spacing:-.025em; margin:25px 0; }
+.ai-hero h1 em { color:#647f3d; font-weight:400; }
+.ai-lead { max-width:580px; font-size:18px; line-height:1.8; color:#52654c; margin-bottom:30px; }
+.ai-art { position:relative; min-height:440px; display:grid; place-items:center; background:radial-gradient(ellipse,#446a3b,#15392c 70%); border-radius:48% 48% 12px 12px; color:white; isolation:isolate; }
+.ai-core { display:flex; align-items:center; flex-direction:column; text-align:center; padding:35px; z-index:1; }
+.ai-core small { font-size:9px; letter-spacing:.18em; color:#d4edac; }
+.ai-core strong { font-size:78px; line-height:1; letter-spacing:-.06em; margin:20px 0; font-weight:550; }
+.ai-core>span { font-size:12px; letter-spacing:.06em; color:#d4edac; }
+.ai-orbit { position:absolute; width:80%; height:46%; border:1px solid #bad891; border-radius:50%; opacity:.55; transform:rotate(-35deg); }
+.orbit-two { transform:rotate(45deg); height:65%; width:65%; opacity:.3; }
+.ai-art-label { position:absolute; padding:10px 12px; background:#e6f0d4; color:#304e30; border-radius:4px; font-size:9px; letter-spacing:.08em; z-index:2; }
+.ai-label-one { left:-18px; top:80px; }.ai-label-two { right:-15px; bottom:105px; }.ai-label-three { left:20px; bottom:40px; }
+.ai-mini-art { display:flex; align-items:center; justify-content:center; gap:12px; min-height:115px; margin-bottom:25px; background:radial-gradient(ellipse,#517544,#15392c); color:#e1f8bb; font-size:11px; letter-spacing:.06em; }
+.ai-tool-band { background:#e4edd8; padding:65px 48px; }
+.ai-tool-band>.story-shell { display:flex; justify-content:space-between; align-items:center; gap:40px; }
+.ai-tool-band h2 { font-size:42px; font-weight:500; letter-spacing:-.04em; line-height:1.1; }
+.ai-tool-band p { max-width:600px; font-size:16px; line-height:1.8; color:#56694d; }
+@media(max-width:750px) { .ai-hero { padding:40px 24px 55px; }.ai-hero-grid { grid-template-columns:1fr; gap:35px; }.ai-art { min-height:350px; max-width:450px; width:100%; margin:auto; }.ai-art-label { font-size:8px; }.ai-label-one { left:0; }.ai-label-two { right:0; }.ai-tool-band { padding:45px 24px; }.ai-tool-band>.story-shell { flex-direction:column; align-items:flex-start; gap:15px; } }

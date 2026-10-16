@@ -48,3 +48,7 @@ The homepage’s Explore section remains the quick menu overview. Three category
 Each dropdown topic opens its own HTML page under `/solutions/`, `/operations/`, or `/platform/`. Seventeen topic pages contain original explanatory content and workflow walkthroughs based on the product information documented in this repository. These pages do not read live WMS records.
 
 Shared styles and dropdown behavior live in `public/site.css` and `public/navigation.js`. Vite builds every HTML entry point listed or discovered in `vite.config.js`.
+
+## Platform & AI story
+
+`/platform/ai.html` introduces the AI-assisted development approach confirmed by the product creator. Distinct guides cover development, voice recording, and Ella. Voice recording is confirmed at a high level; speech transcription, command execution, storage mechanisms, and specific AI vendors have not been verified in this repository and are not claimed by these pages. The original configuration overview remains available at `/platform-tools.html` through the Platform & AI dropdown.

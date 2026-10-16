@@ -4,6 +4,8 @@ import { existsSync } from 'node:fs';
 import { answerElla } from '../public/ella-answers.js';
 
 const basic = [
+  ['Was TK WMS built using AI?', '/platform/ai-development.html'],
+  ['What is voice recording?', '/platform/voice.html'],
   ['What does TK WMS do?', '/solutions.html'],
   ['What does the Inventory Workbench show?', '/operations/inventory.html'],
   ['What does the Strategy Engine do?', '/platform/strategy.html'],
@@ -26,6 +28,7 @@ for (const [question, url] of basic) test(question, () => {
   assert.ok(existsSync('.' + url));
 });
 const detailed = [
+  ['Does voice recording automatically transcribe speech?', '/platform/voice.html'],
   ['How do I configure a replenishment method step by step?', '/operations/replenishment.html'],
   ['Does inventory support FIFO?', '/operations/inventory.html'],
   ['Can TK WMS integrate with SAP?', '/platform/implementation.html'],
